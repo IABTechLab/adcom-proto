@@ -1,0 +1,454 @@
+/**
+ * The Media group of objects defines an actual ad including reference to its creative and metadata 
+ * to enable proper rendering, restrictions compliance, event tracking, and quality auditing. The 
+ * following figure presents the objects and interrelationships in this group. The objects are 
+ * defined in the subsections thereafter.
+ */
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+import "proto/com/iab/adcom/enums/enums.proto";
+
+package com.iab.adcom;
+
+/**
+ * This object is the root of a structure that defines in instance of advertising media. It includes
+ * metadata about the ad overall and sub-objects that provide additional detail specific to the type 
+ * of media comprising the creative.
+ */
+message Ad {
+  // Required. ID of the creative; unique at least throughout the scope of a vendor (e.g., an 
+  // exchange or buying platform). Note that multiple instances of the same ad when used in 
+  // transactions must have the same ID.
+  string id = 1;
+  
+  // Recommended. Advertiser domain; top two levels only (e.g., "ford.com"). This can be an array
+  // for the case of rotating creatives.
+  repeated string adomain = 2;
+
+  // When the product of the ad is an app, the unique ID of that app as a bundle or package name
+  // (e.g., "com.foo.mygame"). This should NOT be an app store ID (e.g., no iTunes store IDs). This
+  // can be an array of for the case of rotating creatives.
+  repeated string bundle = 3;
+
+  // URL without cache-busting to an image that is representative of the ad content for cursory
+  // level ad quality checking.
+  string iurl = 4;
+
+  // Array of content categories describing the ad using IDs from the taxonomy indicated in "cattax".
+  repeated string cat = 5;
+
+  // The taxonomy in use for the "cat" attribute. Refer to List: Category Taxonomies.
+  // The default value is 2.
+  com.iab.adcom.enums.CategoryTaxonomy cattax = 6;
+
+  // Language of the creative using ISO-639-1-alpha-2. In practice, vendors using this object may
+  // elect an alternate standard (e.g., BCP-47) in which case this must be communicated a priori.
+  // The non-standard code "xx" may also be used if the creative has no linguistic content (e.g.,
+  // a banner with just a company logo).
+  string lang = 7;
+
+  // Set of attributes describing the creative. Refer to List: Creative Attributes.
+  com.iab.adcom.enums.Creative.Attribute attr = 8;
+
+  // Flag to indicate if the creative is secure (i.e., uses HTTPS for all assets and markup), where
+  // 0 = no, 1 = yes. There is no default and thus if omitted, the secure state is unknown. However,
+  // as a practical matter, the safe  assumption is to treat unknown as non-secure.
+  int32 secure = 9;
+
+  // Media rating per IQG guidelines. Refer to List: Media Ratings.
+  com.iab.adcom.enums.MediaRating mrating = 10;
+
+  // Date/time of the original instantiation of this ad (i.e., this object or any of its children)
+  // in the format of ISO-8601; W3C profile. Refer to www.w3.org/TR/NOTE-datetime.
+  string init = 11;
+
+  // Date/time of most recent modification to this ad (i.e., this object or any of its children) in
+  // the format of ISO-8601; W3C profile. Refer to www.w3.org/TR/NOTE-datetime.
+  string lastmod = 12;
+
+  // Identifies a Media Subtype Object that indicates the type of ad and provides additional
+  // details.
+  // As enforced by the protocol buffer definition, one of these must be set.
+  oneof type {
+    // If set, indicates this is a display ad and provides additional detail as such.
+    // Refer to Object: Display. 
+    Display display = 13;
+   
+    // If set, indicates this is a video ad and provides additional detail as such.
+    // Refer to Object: Video. 
+    Video video = 14;
+
+    // If set, indicates this is an audio ad and provides additional detail as such.
+    // Refer to Object: Audio. 
+    Audio audio = 15;
+  }
+
+  // An object depicting the audit status of the ad; typically part of a quality/safety review
+  // process.
+  // Refer to Object: Audit.
+  Audit audit = 30;
+
+  // Optional vendor-specific extensions.
+  google.protobuf.Any ext = 100;
+
+
+  /**
+   * This object provides additional detail about an ad specifically for display ads. There are 
+   * multiple attributes for specifying creative details: "banner" for simple banner images "native"
+   * for native ads, "ad" for including general markup, and "curl" for referencing general markup via
+   * URL. In any given "Display" object, only one of these attributes should be used to avoid
+   * confusion. To the extent feasible, structured objects should be favored over general markup for
+   * quality and safety issues.
+   */
+  message Display {
+
+    // Mime type of the ad (e.g., "image/jpeg").
+    string mime = 1;
+
+    // API required by the ad if applicable. Refer to List: API Frameworks.
+    com.iab.adcom.enums.APIFramework api = 2;
+
+    // Subtype of display creative. Refer to List: Creative Subtypes - Display.
+    repeated com.iab.adcom.enums.Creative.DisplayType type = 3;
+
+    // Absolute width of the creative in device independent pixels (DIPS), typically for non-native
+    // ads. 
+    // Note that mixing absolute and relative sizes is not recommended.
+    int32 w = 4;
+
+    // Absolute height of the creative in device independent pixels (DIPS), typically for non-native
+    // ads. 
+    // Note that mixing absolute and relative sizes is not recommended.
+    int32 h = 5;
+
+    // Relative width of the creative when expressing size as a ratio, typically for non-native ads. 
+    // Note that mixing absolute and relative sizes is not recommended.
+    int32 wratio = 6;
+
+    // Relative height of the creative when expressing size as a ratio, typically for non-native ads. 
+    // Note that mixing absolute and relative sizes is not recommended.
+    int32 hratio = 7;
+
+    // Represents one of the four ways of making creative markup available.
+    oneof creative {
+      // General display markup (e.g., HTML, AMPHTML) if not using a structured alternative
+      // (e.g., "banner", "native"). 
+      string adm = 20;
+
+      // Optional means of retrieving display markup by reference; a URL that can return HTML,
+      // AMPHTML, or a collection native "Asset" object and their subordinates). If this ad is matched
+      // to a Placement specification, the "Placement.ref" attribute indicates if this markup
+      // retrieval option is supported. 
+      string curl = 21;
+
+      // Structured banner image object, recommended for simple banner creatives.
+      // Refer to Object: Banner.
+      Banner banner = 22;
+
+      // Structured native object, recommended for native ads.
+      // Refer to Object: Native.
+      Native native = 23;
+    }
+
+    // Array of events that the advertiser or buying platform wants to track.
+    // Refer to Object: Event.
+    repeated Event event = 30;
+
+    // Optional vendor-specific extensions.
+    google.protobuf.Any ext = 100;
+
+
+    /**
+     * This object describes a basic banner creative. It is intended for display scenarios that
+     * require a simple, structured image/link pair and is more secure than allowing arbitrary HTML
+     * or JavaScript code.
+     */
+    message Banner {
+      // A URL that will return the image.
+      string img = 1;
+
+      // Destination URL if the image is activated (e.g., clicked). The attribute is not applicable
+      // in some contexts (e.g., DOOH) and its inclusion does not guarantee it will be supported.
+      string link = 2;
+
+      // Optional vendor-specific extensions.
+      google.protobuf.Any ext = 100;
+    }
+
+
+    /**
+     * This object is the root of a structure that defines a native display ad.
+     */
+    message Native {
+      // URL of a page informing the user about a buyer's targeting activity.
+      string priv = 1;
+
+      // Default destination link for the native ad overall; used if an asset is activated (e.g.,
+      // clicked) that does not specify it's own destination link.
+      // Refer to Object: LinkAsset.
+      Asset.LinkAsset link = 2;
+
+      // Array of assets that comprise the native ad.
+      // Refer to Object: Asset.
+      repeated Asset assets = 3;
+
+      // Optional vendor-specific extensions.
+      google.protobuf.Any ext = 100;
+
+
+      /**
+       * This object is the container for each asset comprising a native ad. Each asset is of a
+       * specific type and to reflect this, one and only one of the subtype objects (i.e., "title",
+       * "img", "video", "data") must be present; all others should be omitted.
+       */
+      message Asset {
+        // The value of "AssetFormat.id" if this ad references a specific native placement defined
+        // by a "Placement" object and its structure.
+        int32 id = 1;
+
+        // Indicates if the asset is required to be displayed, where 0 = no, 1 = yes.
+        // Default is 0.
+        int32 req = 2;
+
+        // The specific asset type suboject that provides additional asset detail.
+        oneof asset {
+          TitleAsset title = 5;
+          ImageAsset image = 6;
+          VideoAsset video = 7;
+          DataAsset data = 8;
+          LinkAsset link = 9;
+        }
+
+        // Optional vendor-specific extensions.
+        google.protobuf.Any ext = 100;
+
+
+        /**
+         * This object identifies the native asset as a link asset and is used to define navigation
+         * for call-to-action or other activations (i.e., clicks). A link asset can be independent
+         * or associated with the overall native ad (i.e., a default for all assets).
+         */
+        message LinkAsset {
+          // Required. Landing URL of the clickable link.
+          string url = 1;
+
+          // Fallback URL for deep-link to be used if the URL specified in "url" is not supported by
+          // the device.
+          string urlfb = 2;
+
+          // List of third-party tracker URLs to be fired on click.
+          repeated string trkrs = 3;
+
+          // Optional vendor-specific extensions.
+          google.protobuf.Any ext = 100;
+        }
+
+
+        /**
+         * This object identifies the native asset as a title asset, which is essentially just a
+         * plain text string with specified length.
+         */
+        message TitleAsset {
+          // Required. The text content of the text element.
+          string text = 1;
+
+          // The length of the contents of the "text" attribute.
+          int32 len = 2;
+
+          // Optional vendor-specific extensions.
+          google.protobuf.Any ext = 100;
+        }
+
+
+        /**
+         * This object identifies the native asset as a image asset. Image assets are use for such
+         * elements as the actual creative images and icons.
+         */
+        message ImageAsset {
+          // Required. A URL that returns the image for the asset.
+          string url = 1;
+
+          // Recommended. Width of the image asset in device independent pixels (DIPS).
+          int32 w = 2;
+
+          // Recommended. Height of the image asset in device independent pixels (DIPS).
+          int32 h = 3;
+
+          // The type of image represented by this asset. Refer to List: Native Image Asset Types.
+          com.iab.adcom.enums.NativeImageAssetType type = 4;
+
+          // Optional vendor-specific extensions.
+          google.protobuf.Any ext = 100;
+        }
+
+
+        /**
+         * This object identifies the native asset as a video asset. Video markup (e.g., VAST) must
+         * be either included or referenced.
+         */
+        message VideoAsset {
+          // Required. Represents one of the two ways of making video markup available.
+          oneof creative {
+            // Video markup (e.g., VAST document) for the asset.  
+            string adm = 1;
+
+            // A URL that returns the video markup (e.g., VAST document) for the asset. If this ad 
+            // is matched to a placement specification, the "Placement.ref" attribute indicates if 
+            // this markup retrieval option is supported. 
+            string curl = 2;
+          }
+
+          // Optional vendor-specific extensions.
+          google.protobuf.Any ext = 100;
+        }
+
+
+        /**
+         * This object identifies the native asset as a data asset. A data asset is used for all 
+         * miscellaneous elements such as brand name, ratings, stars, review count, downloads, 
+         * price, counts, etc. It is purposefully generic to support native elements not currently
+         * contemplated by this specification.
+         */
+        message DataAsset {
+          // Required. A formatted string of data to be displayed (e.g., "5 stars", "3.4 stars out 
+          // of 5", "$10", etc.).
+          string value = 1;
+
+          // The length of the "value" contents. This length should conform to recommendations 
+          // provided in List: Native Data Asset Types, where applicable.
+          int32 len = 2;
+
+          // The type of data represented by this asset. Refer to List: Native Data Asset Types.
+          com.iab.adcom.enums.NativeDataAssetType type = 3;
+
+          // Optional vendor-specific extensions.
+          google.protobuf.Any ext = 100;
+        }
+      }
+    }
+
+
+    /**
+     * This object specifies a type of event that the advertiser or buying platform wants to track 
+     * along with the information required to do so.
+     */
+    message Event {
+      // Required. Type of event to track.
+      // Refer to List: Event Types.
+      com.iab.adcom.enums.EventType type = 1;
+
+      // Required. Method of tracking requested.
+      // Refer to List: Event Tracking Methods.
+      com.iab.adcom.enums.EventTrackingMethod method = 2;
+
+      // The APIs being used by the tracker; only relevant when the tracking method is JavaScript
+      // Refer to List: API Frameworks.
+      repeated com.iab.adcom.enums.APIFramework apis = 3;
+
+      // The URL of the tracking pixel or JavaScript tag, respectively.
+      // Required for Image-Pixel or JavaScript methods.
+      string url = 4;
+
+      // An array of key-value pairs to support vendor-specific data required for custom tracking.
+      // For example, the account number of a buyer with a tracking company might be reprsented as:
+      // {"acct": "123"}.
+      map<string, string> cdata = 5;
+
+      // Optional vendor-specific extensions.
+      google.protobuf.Any ext = 100;
+    }
+  }
+
+
+  /**
+   * This object provides additional detail about an ad specifically for video ads.
+   */
+  message Video {
+    // Mime type(s) of the ad creative(s) (e.g., "video/mp4").
+    repeated string mimes = 1;
+
+    // API required by the ad if applicable.
+    // Refer to List: API Frameworks
+    repeated com.iab.adcom.enums.APIFramework apis = 2;
+
+    // Subtype of video creative.
+    // Refer to List: Creative Subtypes - Video.
+    repeated com.iab.adcom.enums.Creative.VideoType types = 3;
+
+    // Video markup (e.g., VAST).
+    oneof creative {
+      // Video markup (e.g., VAST document) for the asset.  
+      string adm = 5;
+
+      // A URL that returns the video markup (e.g., VAST document) for the asset. If this ad 
+      // is matched to a placement specification, the "Placement.ref" attribute indicates if 
+      // this markup retrieval option is supported. 
+      string curl = 6;
+    }
+
+    // Optional vendor-specific extensions.
+    google.protobuf.Any ext = 100;
+  }
+
+
+  /**
+   * This object provides additional detail about an ad specifically for audio ads.
+   */
+  message Audio {
+    // Mime type(s) of the ad creative(s) (e.g., "audio/mp4").
+    repeated string mimes = 1;
+
+    // API required by the ad if applicable.
+    // Refer to List: API Frameworks
+    repeated com.iab.adcom.enums.APIFramework apis = 2;
+
+    // Subtype of video creative.
+    // Refer to List: Creative Subtypes - Audio.
+    repeated com.iab.adcom.enums.Creative.AudioType types = 3;
+
+    // Video markup (e.g., DAAST).
+    oneof creative {
+      // Video markup (e.g., DAAST document) for the asset.  
+      string adm = 5;
+
+      // A URL that returns the video markup (e.g., DAAST document) for the asset. If this ad 
+      // is matched to a placement specification, the "Placement.ref" attribute indicates if 
+      // this markup retrieval option is supported. 
+      string curl = 6;
+    }
+
+    // Optional vendor-specific extensions.
+    google.protobuf.Any ext = 100;
+  }
+
+  /**
+   * This objects represents the outcome of some form of review of the ad. This is typical, for 
+   * example, when scanning for malware or otherwise performing ad quality reviews.
+   */
+  message Audit {
+    // The audit status of the ad. Refer to List: Audit Status Codes.
+    com.iab.adcom.enums.AuditStatusCode status = 1;
+
+    // One or more human-readable explanations as to reasons for rejection or any changes to fields
+    // for ad quality reasons (e.g., "adomain", "cat", "attr", etc.)
+    repeated string feedback = 2;
+
+    // Date/time of the original instantiation of this object in the format of ISO-8601; W3C 
+    // profile. Refer to www.w3.org/TR/NOTE-datetime.
+    string init = 3;
+
+    // Date/time of the original instantiation of this object in the format of ISO-8601; W3C 
+    // profile. Refer to www.w3.org/TR/NOTE-datetime.
+    string lastmod = 4;
+
+    // Correction object wherein the auditor can specify changes to attributes of the "Ad" object or
+    // its children they believe to be proper. For example, if the original "Ad" indicated a 
+    // category of "IAB3", but the auditor deems the correct category to be "IAB13", then "corr" 
+    // could include a sparse "Ad" object including just the "cat" array indicating "IAB13".
+    google.protobuf.Any corr = 5;
+
+    // Optional vendor-specific extensions.
+    google.protobuf.Any ext = 100;
+  }
+}
