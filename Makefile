@@ -14,7 +14,7 @@ docs:
 	docker run --rm \
   -v ${PWD}/doc:/out \
   -v ${PWD}/:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md \
+  pseudomuto/protoc-gen-doc --doc_opt=markdown,README.md \
 	proto/com/iab/adcom/adcom.proto \
 	proto/com/iab/adcom/context/context.proto \
 	proto/com/iab/adcom/media/media.proto \
