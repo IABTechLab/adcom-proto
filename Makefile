@@ -1,7 +1,7 @@
 # Build the docs for the proto3 definition.
 
 bindings:
-	protoc proto/com/iab/adcom/adcom.proto --java_out=java --go_out=go
+	protoc proto/com/iabtechlab/adcom/adcom.proto --java_out=java --go_out=go
 
 check:
 	prototool lint
@@ -15,10 +15,10 @@ docs:
   -v ${PWD}/doc:/out \
   -v ${PWD}/:/protos \
   pseudomuto/protoc-gen-doc --doc_opt=markdown,README.md \
-	proto/com/iab/adcom/adcom.proto \
-	proto/com/iab/adcom/context/context.proto \
-	proto/com/iab/adcom/media/media.proto \
-	proto/com/iab/adcom/placement/placement.proto
+	proto/com/iabtechlab/adcom/adcom.proto \
+	proto/com/iabtechlab/adcom/context/context.proto \
+	proto/com/iabtechlab/adcom/media/media.proto \
+	proto/com/iabtechlab/adcom/placement/placement.proto
 
 watch:
 	fswatch  -r ./proto/ | xargs -n1 make docs

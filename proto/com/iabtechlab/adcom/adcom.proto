@@ -1,0 +1,11 @@
+/**
+ * Make it easy to include adcom by providing a single point of entry.
+ */
+syntax = "proto3";
+
+import public "proto/com/iabtechlab/adcom/enums/enums.proto";
+import public "proto/com/iabtechlab/adcom/context/context.proto";
+import public "proto/com/iabtechlab/adcom/media/media.proto";
+import public "proto/com/iabtechlab/adcom/placement/placement.proto";
+
+package com.iabtechlab.adcom;

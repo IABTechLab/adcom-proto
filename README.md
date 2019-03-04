@@ -14,6 +14,7 @@ When iterating on the protobuff definitions, you can run `make watch` and it wil
 
 ## Dependencies
 The Makefile provides targets that depend on the following tools being installed:
+* golang
 * protoc - for generating go and java bindings
 * prototools - for running a linter and for formatting
 * docker - for generating docs
