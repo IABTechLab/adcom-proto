@@ -1,7 +1,7 @@
 # Build the docs for the proto3 definition.
 
 bindings:
-	protoc proto/com/iabtechlab/adcom/adcom.proto --java_out=java --go_out=go
+	protoc --proto_path proto proto/com/iabtechlab/adcom/adcom.proto --java_out=java --go_out=go
 
 check:
 	prototool lint

@@ -8,7 +8,7 @@
 syntax = "proto3";
 
 import "google/protobuf/any.proto";
-import "proto/com/iabtechlab/adcom/enums/enums.proto";
+import "com/iabtechlab/adcom/enums/enums.proto";
 
 package com.iabtechlab.adcom.context;
 
