@@ -10,7 +10,8 @@ package com.iabtechlab.adcom.enums;
  * by an ad.
  */
 enum APIFramework {
-  UNSET_APIF = 0;  // Equivalent to an unset value.
+  APIFramework_UNKNOWN = 0;  // Equivalent to an unset value.
+
   VPAID_1_0  = 1;  // VPAID 1.0
   VAPID_2_0  = 2;  // VPAID 2.0
   MRAID_1_0  = 3;  // MRAID 1.0
@@ -26,8 +27,8 @@ enum APIFramework {
  */
 enum AuditStatusCode {
   // Equivalent to an unset value.
-  UNSET_ASC = 0;
-
+  AuditStatusCode_UNKNOWN = 0;
+  
   // Pending Audit: An audit has not yet been completed on this ad. A recommendation cannot be made
   // to use this ad, but vendors' policies may override.
   PENDING_AUDIT = 1;
@@ -59,7 +60,8 @@ enum AuditStatusCode {
  * http://www.iab.com/guidelines/taxonomy
  */
 enum CategoryTaxonomy {
-  UNSET_CAT_TAX         = 0;  // Equivalent to an unset value.
+  CategoryTaxonomy_UNKNOWN = 0; // Equivalent to an unset value.
+
   IAB_CNTNT_CAT_TAX_1_0 = 1;  // IAB Content Category Taxonomy 1.0
   IAB_CNTNT_CAT_TAX_2_0 = 2;  // IAB Content Category Taxonomy 2.0
   IAB_AD_PROD_TAX_1_0   = 3;  // IAB Ad Product Taxonomy 1.0
@@ -82,7 +84,8 @@ enum ClickType {
  * apply to video and audio ads. This enum is derived from VAST 2.0+ and DAAST 1.0+ specifications.
  */
 enum CompanionType {
-  UNSET_COMP_TYPE = 0;  // Equivalent to an unset value.
+  CompanionType_UNKNOWN = 0;  // Equivalent to an unset value.
+
   STATIC_RSRC     = 1;  // Static resource.
   HTML_RSRC       = 2;  // HTML resource.
   IFRAME_RSRC     = 3;  // Iframe resource.
@@ -93,7 +96,8 @@ enum CompanionType {
  * The following enum defines the options for the type of device connectivity.
  */
 enum ConnectionType {
-  UNSET_CONN_TYPE = 0;  // Equivalent to an unset value.
+  ConnectionType_UNKNOWN = 0;  // Equivalent to an unset value.
+
   WIRED           = 1;  // Wired ethernet connection.
   WIFI            = 2;  // WIFI.
   CELL_UNKNOWN    = 3;  // Cellular Network - unknown generation.
@@ -110,14 +114,15 @@ enum ConnectionType {
  * Inventory Quality Guidelines (IQG).
  */
 enum ContentContext {
-  UNSET_CON_CON = 0;
+  ContentContext_UNKNOWN = 0;  // Equivalent to an unset value.
+
   VIDEO         = 1;  // Video (i.e., video file or stream such as Internet TV broadcasts).
   GAME          = 2;  // Game (i.e., an interactive software game).
   MUSIC         = 3;  // Music (i.e., audio file or stream such as Internet radio broadcasts).
   APPLICATION   = 4;  // Application (i.e., an interactive software application).
   TEXT          = 5;  // Text (i.e., primarily textual document such as a web page, eBook, or news article).
   OTHER         = 6;  // Other (i.e., none of the other categories applies).
-  UNKNOWN       = 7;  // Unknown content context.
+  NOTKNOWN      = 7;  // Unknown content context.
 }
 
 
@@ -127,7 +132,8 @@ message Creative {
 	 * or restrictions relative to a given placement.
 	 */
 	enum Attribute {
-		UNSET_ATTR       = 0;  // Equivalent to an unset value.
+    Attribute_UNKNOWN     = 0; // Equivalent to an unset value.
+
 		AUDIO_AUTOPLAY        = 1;  // Audio Ad (Autoplay).
 		AUDIO_USER_INIT       = 2;  // Audio Ad (User Initiated).
 		EXPANDABLE_AUTO       = 3;  // Expandable (Automatic).
@@ -153,7 +159,8 @@ message Creative {
 	 * The following enum defines the various subtypes of audio ad creatives.
 	 */
 	enum AudioType {
-		UNSET_AT       = 0;  // Equivalent to an unset value.
+    AudioType_UNKNOWN = 0;  // Equivalent to an unset value.
+
 		DAAST_1_0      = 1;  // DAAST 1.0
 		DAAST_1_0_WRAP = 2;  // DAAST 1.0 Wrapper
 	}
@@ -163,7 +170,8 @@ message Creative {
 	 * The following enum defines the various subtypes of display ad creatives.
 	 */
 	enum DisplayType {
-		UNSET_DT = 0;  // Equivalent to an unset value.
+    DisplayType_UNKNOWN = 0;  // Equivalent to an unset value.
+
 		HTML     = 1;  // HTML
 		AMPHTML  = 2;  // AMP HTML
 		IMAGE    = 3;  // Structured Image object
@@ -175,7 +183,8 @@ message Creative {
 	 * The following enum defines the various subtypes of video ad creatives.
 	 */
 	enum VideoType {
-		UNSET_VT      = 0;  // Equivalent to an unset value.
+    VideoType_UNKNOWN = 0;  // Equivalent to an unset value.
+
 		VAST_1_0      = 1;  // VAST 1.0
 		VAST_2_0      = 2;  // VAST 2.0
 		VAST_3_0      = 3;  // VAST 3.0
@@ -195,7 +204,8 @@ message Creative {
  * The following enum defines the various options for the delivery of video or audio content.
  */
 enum DeliveryMethod {
-  UNSET_DEL_METH = 0;  // Equivalent to an unset value.
+  DeliveryMethod_UNKNOWN = 0; // Equivalent to an unset value.
+
   STREAMING      = 1;  // Streaming video or audio.
   PROGRESSIVE    = 2;  // Progressive video or audio.
   DOWNLOAD       = 3;  // Downloadable video or audio.
@@ -207,7 +217,8 @@ enum DeliveryMethod {
  * Inventory Quality Guidelines (IQG).
  */
 enum DeviceType {
-  UNSET_DEV_TYPE = 0;  // Equivalent to an unset value.
+  DeviceType_UNKNOWN = 0; // Equivalent to an unset value.
+
   MOBILE_TABLET  = 1;  // Mobile/Tablet - General.
   PC             = 2;  // Personal Computer.
   CONNECTED_TV   = 3;  // Connected TV.
@@ -225,7 +236,8 @@ enum DeviceType {
  * 10s (i.e., 12 is a refined case of 100).
  */
 enum DisplayContextType {
-  UNSET_DISP_CT   = 0;  // Equivalent to an unset value.
+  DisplayContextType_UNKNOWN = 0;  // Equivalent to an unset value.
+
   CONTENT_CENTRIC = 10; // Content-centric context (e.g., newsfeed, article, image gallery, video gallery, etc.).
   ARTICLE         = 11; // Primarily article content, which could include images, etc. as part of the article.
   VIDEO_X         = 12; // Primarily video content.
@@ -246,7 +258,8 @@ enum DisplayContextType {
  * native ad may be shown in relationship to the surrounding content.
  */
 enum DisplayPlacementType {
-  UNSET_DISP_PT   = 0;  // Equivalent to an unset value.
+  DisplayPlacementType_UNKNOWN = 0;  // Equivalent to an unset value.
+
   FEED_CONTENT    = 1;  // In the feed of content (e.g., as an item inside the organic feed, grid, 
                         // listing carousel, etc.).
   ATOMIC_CONTENT  = 2;  // In the atomic unit of the content (e.g., in the article page or single image page).
@@ -261,7 +274,8 @@ enum DisplayPlacementType {
  * Standards.
  */
 enum DOOHVenueType {
-  UNSET_DOOH_VT     = 0;  // Equivalent to an unset value.
+  DOOHVenueType_UNKNOWN = 0;  // Equivalent to an unset value.
+
   AIRBORNE          = 1;  // Airborne.
   AIRPORT_GENERAL   = 2;  // Airports - General.
   AIRPORT_BAG_CLAIM = 3;  // Airports - Baggage Claim.
@@ -327,7 +341,8 @@ enum DOOHVenueType {
  * include custom measurement companies (e.g., Moat, Doubleverify, IAS, etc.).
  */
 enum EventTrackingMethod {
-  UNSET_EVENT_TM  = 0;  // Equivalent to an unset value.
+  EventTrackingMethod_UNKNOWN = 0;  // Equivalent to an unset value.
+
   IMAGE_PIXEL     = 1;  // Image-Pixel: URL provided will be inserted as a 1x1 pixel at time of the event.
   JAVASCRIPT      = 2;  // JavaScript : URL provided will be inserted as a JavaScript tag at time of the event.
 }
@@ -339,7 +354,8 @@ enum EventTrackingMethod {
  * measurement should be deployed at impression time.
  */
 enum EventType {
-  UNSET_EVENT_T   = 0;  // Equivalent to an unset value.
+  EventType_UNKNOWN = 0; // Equivalent to an unset value.
+
   IMPRESSION      = 1;  // impression: Initial creative rendering.
   VIEWABLE_MRC50  = 2;  // viewable-mrc50: Visible impression using MRC definition of 50% in view for 1 second.
   VIEWABLE_MRC100 = 3;  // viewable-mrc100: 100% in view for 1 second (i.e., the GroupM standard).
@@ -353,7 +369,8 @@ enum EventType {
  * positioning of the ad unit on the page and constraints imposed by the content.
  */
 enum ExpandableDirection {
-  UNSET_EXPAND_D = 0;  // Equivalent to an unset value.
+  ExpandableDirection_UNKNOWN = 0;  // Equivalent to an unset value.
+
   LEFT           = 1;
   RIGHT          = 2;
   UP             = 3;
@@ -366,7 +383,8 @@ enum ExpandableDirection {
  * The following enum defines the types of feeds for audio.
  */
 enum FeedType {
-  UNSET_AUDIO_FT  = 0;  // Equivalent to an unset value.
+  FeedType_UNKNOWN = 0;  // Equivalent to an unset value.
+
   MUSIC_SERVICE   = 1;  // Music Service.
   FM_AM_BROADCAST = 2;  // FM/AM Broadcast.
   PODCAST         = 3;  // Podcast.
@@ -378,7 +396,8 @@ enum FeedType {
  * geolocations.
  */
 enum LocationService {
-  UNSET_LOC_S  = 0;  // Equivalent to an unset value.
+  LocationService_UNKNOWN = 0;  // Equivalent to an unset value.
+
   IP2LOCATION  = 1;  // ip2location.
   NEUSTAR      = 2;  // Neustar (Quova).
   MAXMIND      = 3;  // MaxMind.
@@ -390,7 +409,8 @@ enum LocationService {
  * The following enum indicates the options for media linearity, typically for video.
  */ 
 enum LinearityMode {
-  UNSET_LIN_M = 0;  // Equivalent to an unset value.
+  LinearityMode_UNKNOWN = 0;  // Equivalent to an unset value.
+
   LINEAR      = 1;  // Linear (i.e., In-Stream such as Pre-Roll, Mid-Roll, Post-Roll)
   NONLINEAR   = 2;  // Non-Linear (i.e., Overlay)
 }
@@ -400,7 +420,8 @@ enum LinearityMode {
  * The following enum defines the options to indicate how the geographic information was determined.
  */
 enum LocationType {
-  UNSET_LOC_T     = 0;  // Equivalent to an unset value.
+  LocationType_UNKNOWN = 0;  // Equivalent to an unset value.
+
   GPS_LOC_SERVICE = 1;  // GPS/Location Services.
   IP_ADDRESS      = 2;  // IP Address.
   USER_PROVIDED   = 3;  // User Provided (e.g., registration data).
@@ -413,7 +434,8 @@ enum LocationType {
  * www.iab.com/guidelines/digital-video-suite for more information.
  */
 enum MediaRating {
-  UNSET_MEDIA_R  = 0;  // Equivalent to an unset value.
+  MediaRating_UNKNOWN = 0;  // Equivalent to an unset value.
+
   ALL_AUDIENCES  = 1;  // All Audiences.
   OVER_12        = 2;  // Everyone Over Age 12.
   MATURE         = 3;  // Mature Audiences.
@@ -427,7 +449,7 @@ enum MediaRating {
  * this value and the buying platform knows that a string of this size should be accepted.
  */
 enum NativeDataAssetType {
-  UNSET_NATIVE_DAT = 0;  // Equivalent to an unset value.
+  NativeDataAssetType_UNKNOWN = 0;  // Equivalent to an unset value.
 
   // sponsored: "Sponsored By" message which should contain the brand name of the sponsor. 
   // Recommended maximum length of at least 25 characters.
@@ -482,7 +504,7 @@ enum NativeDataAssetType {
  * accepted.
  */
 enum NativeImageAssetType {
-  UNSET_NATIVE_IAT = 0;  // Equivalent to an unset value.
+  NativeImageAssetType_UNKNOWN = 0;  // Equivalent to an unset value.
   
   // Icon: Icon image. 
   // Maximum height at least 50 device independent pixels (DIPS); aspect ratio 1:1.
@@ -539,7 +561,8 @@ enum OperatingSystem {
  * prominence. This enum has values derived from the TAG Inventory Quality Guidelines (IQG).
  */
 enum PlacementPosition {
-  UNSET_PLACE_P  = 0;  // Equivalent to an unset value.
+  PlacementPosition_UNKNOWN = 0;  // Equivalent to an unset value.
+
   ATF            = 1;  // Above the Fold.
   LOCKED         = 2;  // Locked (i.e., fixed position).
   BTF            = 3;  // Below the Fold.
@@ -555,7 +578,7 @@ enum PlacementPosition {
  * Digital Video Guidelines.
  */
 enum VideoPlacementSubtype {
-  UNSET_VIDEO_PS = 0;  // Equivalent to an unset value.
+  VideoPlacementSubtype_UNKNOWN = 0;  // Equivalent to an unset value.
 
   // In-Stream: Played before, during or after the streaming video content that the consumer has 
   // requested (e.g., Pre-roll, Mid-roll, Post-roll).
@@ -583,7 +606,8 @@ enum VideoPlacementSubtype {
  * The following enum defines the various modes for when media playback terminates.
  */
 enum PlaybackCessationMode {
-  UNSET_PLAYBACK_CM = 0;  // Equivalent to an unset value.
+  PlaybackCessationMode_UNKNOWN = 0;  // Equivalent to an unset value.
+
   ON_COMPLETION     = 1;  // On Video Completion or when Terminated by User.
   ON_VIEWPORT_EXIT  = 2;  // On Leaving Viewport or when Terminated by User.
   ON_EXIT_FLOAT     = 3;  // On Leaving Viewport Continues as a Floating/Slider Unit until Video 
@@ -595,7 +619,8 @@ enum PlaybackCessationMode {
  * The following table lists the various media playback methods.
  */
 enum PlaybackMethod {
-  UNSET_PLAYBACK_M    = 0;  // Equivalent to an unset value.
+  PlaybackMethod_UNKNOWN = 0;  // Equivalent to an unset value.
+
   PAGE_LOAD_SOUND_ON  = 1;  // Initiates on Page Load with Sound On.
   PAGE_LOAD_SOUND_OFF = 2;  // Initiates on Page Load with Sound Off by Default.
   CLICK_SOUND_ON      = 3;  // Initiates on Click with Sound On.
@@ -610,7 +635,8 @@ enum PlaybackMethod {
  * refer to www.iab.com/wp-content/uploads/2015/03/long-form-video-final.pdf for more information.
  */
 enum ProductionQuality {
-  UNSET_PROD_Q  = 0;  // Equivalent to an unset value.
+  ProductionQuality_UNKNOWN = 0;  // Equivalent to an unset value.
+
   PROFESSIONAL  = 1;  // Professionally Produced.
   PROSUMER      = 2;  // Prosumer.
   UGC           = 3;  // User Generated Content.
@@ -622,7 +648,8 @@ enum ProductionQuality {
  * specifications where noted.
  */
 enum SizeUnit {
-  UNSET_SIZE_U  = 0;  // Equivalent to an unset value.
+  SizeUnit_UNKNOWN = 0;  // Equivalent to an unset value.
+
   DIPS          = 1;  // Device Independent Pixels.
   INCH          = 2;  // Inches.
   CENTIMETER    = 3;  // Centimeters.
