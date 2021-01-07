@@ -109,7 +109,7 @@ message Ad {
     optional int32 api = 2;
 
     // Subtype of display creative. Refer to List: Creative Subtypes - Display.
-    repeated int32 type = 3;
+    repeated int32 ctype = 3;
 
     // Absolute width of the creative in device independent pixels (DIPS), typically for non-native
     // ads. 
@@ -128,6 +128,9 @@ message Ad {
     // Relative height of the creative when expressing size as a ratio, typically for non-native ads. 
     // Note that mixing absolute and relative sizes is not recommended.
     optional int32 hratio = 7;
+
+    // URL of a page informing the user about a buyer's targeting activity.
+    optional string priv = 8;
 
     // Represents one of the four ways of making creative markup available.
     oneof creative_oneof {
@@ -180,17 +183,14 @@ message Ad {
      * This object is the root of a structure that defines a native display ad.
      */
     message Native {
-      // URL of a page informing the user about a buyer's targeting activity.
-      optional string priv = 1;
-
       // Default destination link for the native ad overall; used if an asset is activated (e.g.,
       // clicked) that does not specify it's own destination link.
       // Refer to Object: LinkAsset.
-      optional Asset.LinkAsset link = 2;
+      optional Asset.LinkAsset link = 1;
 
       // Array of assets that comprise the native ad.
       // Refer to Object: Asset.
-      repeated Asset assets = 3;
+      repeated Asset asset = 2;
 
       // Optional vendor-specific extensions.
       extensions 100 to 9999;
@@ -212,11 +212,11 @@ message Ad {
 
         // The specific asset type suboject that provides additional asset detail.
         oneof asset_oneof {
-          TitleAsset title = 5;
-          ImageAsset image = 6;
-          VideoAsset video = 7;
-          DataAsset data = 8;
-          LinkAsset link = 9;
+          TitleAsset title = 3;
+          ImageAsset image = 4;
+          VideoAsset video = 5;
+          DataAsset  data  = 6;
+          LinkAsset  link  = 7;
         }
 
         // Optional vendor-specific extensions.
@@ -237,7 +237,7 @@ message Ad {
           optional string urlfb = 2;
 
           // List of third-party tracker URLs to be fired on click.
-          repeated string trkrs = 3;
+          repeated string trkr = 3;
 
           // Optional vendor-specific extensions.
           extensions 100 to 9999;
@@ -343,7 +343,7 @@ message Ad {
 
       // The APIs being used by the tracker; only relevant when the tracking method is JavaScript
       // Refer to List: API Frameworks.
-      repeated int32 apis = 3;
+      repeated int32 api = 3;
 
       // The URL of the tracking pixel or JavaScript tag, respectively.
       // Required for Image-Pixel or JavaScript methods.
@@ -365,15 +365,18 @@ message Ad {
    */
   message Video {
     // Mime type(s) of the ad creative(s) (e.g., "video/mp4").
-    repeated string mimes = 1;
+    repeated string mime = 1;
 
     // API required by the ad if applicable.
     // Refer to List: API Frameworks
-    repeated int32 apis = 2;
+    repeated int32 api = 2;
 
     // Subtype of video creative.
     // Refer to List: Creative Subtypes - Video.
-    repeated int32 types = 3;
+    repeated int32 ctype = 3;
+
+    // Duration of the video creative in seconds.
+    optional int32 dur = 4;
 
     // Video markup (e.g., VAST).
     oneof creative_oneof {
@@ -396,19 +399,22 @@ message Ad {
    */
   message Audio {
     // Mime type(s) of the ad creative(s) (e.g., "audio/mp4").
-    repeated string mimes = 1;
+    repeated string mime = 1;
 
     // API required by the ad if applicable.
     // Refer to List: API Frameworks
-    repeated int32 apis = 2;
+    repeated int32 api = 2;
 
     // Subtype of video creative.
     // Refer to List: Creative Subtypes - Audio.
-    repeated int32 types = 3;
+    repeated int32 ctype = 3;
 
-    // Video markup (e.g., DAAST).
+    // Duration of the audio creative in seconds.
+    optional int32 dur = 4;
+
+    // Audio markup (e.g., DAAST).
     oneof creative_oneof {
-      // Video markup (e.g., DAAST document) for the asset.  
+      // Audio markup (e.g., DAAST document) for the asset.  
       string adm = 5;
 
       // A URL that returns the video markup (e.g., DAAST document) for the asset. If this ad 

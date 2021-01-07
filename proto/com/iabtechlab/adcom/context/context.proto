@@ -265,38 +265,41 @@ message Content {
   // Content rating (e.g., MPAA).
   optional string rating = 15;
 
+  // User rating of the content (e.g., number of stars, likes, etc.).
+  optional string urating = 16;
+
   // Media rating per IQG guidelines.
   // Refer to List: Media Ratings.
-  optional com.iabtechlab.adcom.enums.MediaRating mrating = 16;
+  optional com.iabtechlab.adcom.enums.MediaRating mrating = 17;
 
   // Array of kewyords describing the content.
   // TOOD(@joelpm): deviates but makes more sense to me.
-  repeated string keywords = 17;
+  repeated string keywords = 18;
 
   // Indication of live content, where false = not live, true = live (e.g. stream, live blog).
-  optional bool live = 18;
+  optional bool live = 19;
 
   // Source relationship, where 0 = indirect, 1 = direct.
   // TODO(@joelpm): rename drctsrcrel and make boolean?
-  optional int32 srcrel = 19;
+  optional int32 srcrel = 20;
 
   // Length of content in seconds; typically for video or audio.
-  optional int32 len = 20;
+  optional int32 len = 21;
 
   // Content language using ISO-639-1-alpha-2.
-  optional string lang = 21;
+  optional string lang = 22;
 
   // Indicator of whether or not the content is embedded off-site from the site or app described
   // in those objects (e.g., an embedded video player), where false = no, true = yes.
-  optional bool embed = 22;
+  optional bool embed = 23;
 
   // Details about the content producer.
   // Refer to Object: Producer.
-  optional Producer producer = 23;
+  optional Producer producer = 24;
 
   // Additional user data. Each "Data" object represents a different data source.
   // Refer to Object: Data.
-  repeated Data data = 24;
+  repeated Data data = 25;
 
   // Optional vendor-specific extensions.
   extensions 100 to 9999;
@@ -369,6 +372,9 @@ message User {
   // Refer to Object: Data.
   repeated Data data = 8;
 
+  // Extended (third-party) identifiers for this user. Refer to Object: Extended Identifiers.
+  repeated ExtendedIds eids = 9;
+
   // Optional vendor-specific extensions.
   extensions 100 to 9999;
 }
@@ -408,66 +414,69 @@ message Device {
   // Refer to List: Operating Systems.
   optional com.iabtechlab.adcom.enums.OperatingSystem os = 8;
 
+  // Device operating system version (e.g., “3.1.2”).
+  optional string osv = 9;
+
   // Hardware version of the device (e.g. "5S" for iPhone 5S).
-  optional string hwv = 9;
+  optional string hwv = 10;
 
   // Physical height of the screen in pixels.
-  optional int32 h = 10;
+  optional int32 h = 11;
 
   // Physical width of the screen in pixels.
-  optional int32 w = 11;
+  optional int32 w = 12;
 
   // Screen size as pixels per linear inch.
-  optional int32 ppi = 12;
+  optional int32 ppi = 13;
 
   // The ratio of pixels to device independent pixels.
-  optional float pxratio = 13;
+  optional float pxratio = 14;
 
   // Support for Javascript, where false = no, true = yes.
-  optional bool js = 14;
+  optional bool js = 15;
 
   // Browser language using ISO-639-1-alpha-2.
-  optional string lang = 15;
+  optional string lang = 16;
 
   // IPv4 address closest to device.
-  optional string ip = 16;
+  optional string ip = 17;
 
   // IPv6 address closest to device.
-  optional string ipv6 = 17;
+  optional string ipv6 = 18;
 
   // The value of the x-frowarded-for header.
-  optional string xff = 18;
+  optional string xff = 19;
 
   // Indicator of truncation of any of the IP attributes (i.e., "ip", "ipv6", "xff", where true =
   // yes, false = no (e.g., from 1.2.3.4 to 1.2.3.0).
   // Refer to tools.ietf.org/html/rfc6235#section-4.1.1 for more information on IP truncation.
-  optional bool iptr = 19;
+  optional bool iptr = 20;
 
   // Carrier or ISP (e.g., "VERIZON") using exchange curated string names which should be published
   // to bidders a priori.
-  optional string carrier = 20;
+  optional string carrier = 21;
 
   // Mobile carrier as the concatenated MCC-MNC code (e.g., "310-005" identifies Verizon Wireless 
   // CDMA in the USA). Refer to en.wikipedia.org/wiki/Mobile_country_code for further information 
   // and references. Note that the dash between the MCC and MNC parts is required to remove parsing
   // ambiguity.
-  optional string mccmnc = 21;
+  optional string mccmnc = 22;
 
   // MCC and MNC of the SIM card using the same format as "mccmnc". When both values are available,
   // a difference between them reveals that a user is roaming.
-  optional string mccmncsim = 22;
+  optional string mccmncsim = 23;
 
   // Network connection type.
   // Refer to List: Connection Types.
-  optional com.iabtechlab.adcom.enums.ConnectionType contype = 23;
+  optional com.iabtechlab.adcom.enums.ConnectionType contype = 24;
 
   // Indicates if the geolocation API will be available to Javascript code running in display ad,
   // where false = no, true = yes.
-  optional bool feofetch = 24;
+  optional bool geofetch = 25;
 
   // Location of the device (i.e., typically the user's current location).
   // Refer to Object: Geo.
-  optional Geo geo = 25;
+  optional Geo geo = 26;
 
   // Optional vendor-specific extensions.
   extensions 100 to 9999;
@@ -593,6 +602,32 @@ message Regs {
   // Flag indicating if GDPR regulations apply, where false = no, true = yes.
   // The General Data Protection Regulation (GDPR) is a regulation of the European Union.
   optional bool gdpr = 2;
+
+  // Optional vendor-specific extensions.
+  extensions 100 to 9999;
+}
+
+
+/**
+ * This object allows lists of restrictions on ad responses to be specified including specific
+ * content categories, advertisers, ads pertaining to specific apps, or creative attributes.
+ */
+message Restrictions {
+  // Block list of content categories using IDs from the taxonomy indicated in cattax.
+  repeated string bcat = 1;
+
+  // The taxonomy in use for the bcat attribute. Refer to List: Category Taxonomies.
+  optional int32 cattax = 2;
+
+  // Block list of advertisers by their domains (e.g., “ford.com”).
+  repeated string badv = 3;
+
+  // Block list of apps for which ads are disallowed. These should be bundle or package names
+  // (e.g., “com.foo.mygame”) and should NOT be app store IDs (e.g., not iTunes store IDs).
+  repeated string bapp = 4;
+
+  // Block list of creative attributes. Refer to List: Creative Attributes.
+  repeated int32 battr = 5;
 
   // Optional vendor-specific extensions.
   extensions 100 to 9999;

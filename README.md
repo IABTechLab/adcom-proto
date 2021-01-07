@@ -1,7 +1,6 @@
 # IAB Protobuff Spec for AdCOM (WIP)
 
 # Comments
-* Where a field is an array, the name was pluralized.
 * Where the spec dictates one of several fields be populated, the "oneof" label is used to enforce this.
 * Where the spec recommends that only of several fields be used, the "oneof" label is used to enforce this.
 * ~~Where an int is supposed to be from a list, I'm going to switch to an ENUM and enforce this (todo).~~

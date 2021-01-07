@@ -41,60 +41,42 @@ message Placement {
   // Indicates if this is a rewarded placement, where 0 = no, 1 = yes. Default = 0.
   optional int32 reward = 5;
 
-  // Block list of content categories using IDs from the taxonomy indicated in "cattax".
-  repeated string bcats = 6;
-
-  // The taxonomy in use for the "bcat" attribute. Default = 2.
-  // Refer to List: Category Taxonomies.
-  optional int32 cattax = 7;
-
-  // Block list of advertisers by their domains (e.g., "ford.com").
-  repeated string badvs = 8;
-
-  // Block list of apps for which ads are disallowed. These should be bundle or package names
-  // (e.g., "com.foo.mygame") and should NOT be app store IDs (e.g., not iTunes store IDs).
-  repeated string bapps = 9;
-
-  // Block list of creative attributes.
-  // Refer to List: Creative Attributes.
-  repeated int32 battrs = 10;
-
   // Whitelist of permitted languages of the creative using ISO-639-1-alpha-2. In practice, 
   // vendors using this object may elect an alternate standard (e.g., BCP-47) in which case
   // this must be communicated a priori. Omission of this attribute indicates there are no
   // restrictions.
-  repeated string wlangs = 11;
+  repeated string wlang = 6;
 
   // Flag to indicate if the creative is secure (i.e., uses HTTPS for all assets and markup),
   // where 0 = no, 1 = yes. There is no default and thus if omitted, the secure state is
   // unknown. However, as a practical matter, the safe assumption is to treat unknown as non-secure.
-  optional int32 secure = 12;
+  optional int32 secure = 7;
 
   // Indicates if including markup is supported (i.e., the various "ad" attributes throughout the 
   // "Placement" structure), where 0 = no, 1 = yes.
-  optional int32 admx = 13;
+  optional int32 admx = 8;
 
   // Indicates if retrieving markup via URL reference is supported (i.e., the various "curl"
   // attributes throughout the "placement" structure), where 0 = no, 1 = yes.
-  optional int32 curlx = 14;
+  optional int32 curlx = 9;
 
   // Placement Subtype Object that indicates that this may be a display placement and provides
   // additional detail related thereto.
   // Refer to Object: DisplayPlacement.
   // * At least one placement subtype is required.
-  optional DisplayPlacement display = 15;
+  optional DisplayPlacement display = 10;
 
   // Placement Subtype Object that indicates that this may be a video placement and provides
   // additional detail related thereto.
   // Refer to Object: VideoPlacement.
   // * At least one placement subtype is required.
-  optional VideoPlacement video = 16;
+  optional VideoPlacement video = 11;
 
   // Placement Subtype Object that indicates that this may be an audio placement and provides
   // additional detail related thereto.
   // Refer to Object: AudioPlacement.
   // * At least one placement subtype is required.
-  optional AudioPlacement audio = 17;
+  optional AudioPlacement audio = 12;
 
   // Optional vendor-specific extensions.
   extensions 100 to 9999;
@@ -120,7 +102,7 @@ message Placement {
 
     // Array of iframe busters supported by this placement. The meaning of strings in this attribute
     // must be coordinated a priori among vendors.
-    repeated string ifrbusts = 4;
+    repeated string ifrbust = 4;
 
     // Indicates the click type of this placement.
     // Refer to List: Click Types.
@@ -140,15 +122,15 @@ message Placement {
 
     // Array of supported mime types (e.g., "image/jpeg", "image/gif"). If omitted, all types are
     // assumed.
-    repeated string mimes = 9;
+    repeated string mime = 9;
 
     // List of supported APIs. If an API is not explicitly listed, it is assumed to be unsupported.
     // Refer to List: API Frameworks.
-    repeated int32 apis = 10;
+    repeated int32 api = 10;
 
     // Creative subtypes permitted.
     // Refer to List: Creative Subtypes - Display.
-    repeated int32 ctypes = 11;
+    repeated int32 ctype = 11;
 
     // Width of the placement in units specified by "unit". Note that this size applies to the 
     // placement itself; permitted creative sizes are specified elsewhere (e.g. "DisplayFormat",
@@ -164,19 +146,23 @@ message Placement {
     // Refer to List: Size Units.
     optional int32 unit = 14;
 
+    // Indicator of whether or not the placement supports a buyer-specific privacy notice URL,
+    // where false = no, true = yes. Default is false.
+    optional bool priv = 15;
+
     // Array of objects that govern the attributes (e.g., sizes) of a banner display placement.
     // Note that including both "displayfmt" and "nativefmt" is not recommended.
     // Refer to Object: DisplayFormat.
-    repeated DisplayFormat displayfmts = 15;
+    repeated DisplayFormat displayfmt = 16;
 
     // This object specified the required and permitted assets and attributes of a native display
     // placement. Note that including both "displayfmt" and "nativefmt" is not recommended.
     // Refer to Object: NativeFormat. 
-    optional NativeFormat nativefmt = 16;
+    optional NativeFormat nativefmt = 17;
 
     // Array of supported ad tracking events.
     // Refer to Object: EventSpec
-    repeated EventSpec event = 17;
+    repeated EventSpec event = 18;
 
     // Optional vendor-specific extensions.
     extensions 100 to 9999;
@@ -218,13 +204,9 @@ message Placement {
      * that comprise the native placement.
      */
     message NativeFormat {
-      // Indicator of whether or not the placement supports a buyer-specific privacy note, where
-      // false = no, true = yes. Default is false.
-      optional bool priv = 1;
-
       // Array of objects that specify the set of native assets and their permitted formats.
       // Refer to Object: AssetFormat.
-      repeated AssetFormat asset = 2;
+      repeated AssetFormat asset = 1;
 
       // Optional vendor-specific extensions.
       extensions 100 to 9999;
@@ -244,10 +226,10 @@ message Placement {
 
         // The specific asset format that provides additional asset forma detail.
         oneof asset_oneof {
-          TitleAssetFormat title = 5;
-          ImageAssetFormat image = 6;
-          VideoPlacement   video = 7;
-          DataAssetFormat  data  = 8;
+          TitleAssetFormat title = 3;
+          ImageAssetFormat img   = 4;
+          VideoPlacement   video = 5;
+          DataAssetFormat  data  = 6;
         }
 
         // Optional vendor-specific extensions.
