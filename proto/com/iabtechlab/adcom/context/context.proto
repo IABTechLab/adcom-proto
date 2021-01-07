@@ -69,7 +69,7 @@ message DistributionChannel {
 
     // The taxonomy in use for the "cat", "sectcat", "pagecat" attributes.
     // Refer to List: Category Taxonomies.
-    optional com.iabtechlab.adcom.enums.CategoryTaxonomy cattax = 5;
+    optional int32 cattax = 5;
 
     // Indicates if the site has a privacy policy, where false = no, true = yes.
     optional bool privpolicy = 6;
@@ -121,7 +121,7 @@ message DistributionChannel {
 
     // The taxonomy in use for the "cat", "sectcat", "pagecat" attributes.
     // Refer to List: Category Taxonomies.
-    optional com.iabtechlab.adcom.enums.CategoryTaxonomy cattax = 5;
+    optional int32 cattax = 5;
 
     // Indicates if the site has a privacy policy, where false = no, true = yes.
     optional bool privpolicy = 6;
@@ -159,7 +159,7 @@ message DistributionChannel {
   message DOOH {
     // The type of out-of-home venue.
     // Refer to List: DOOH Venue Types.
-    optional com.iabtechlab.adcom.enums.DOOHVenueType venue = 1;
+    optional int32 venue = 1;
 
     // Indicates whether the DOOH placement is in a fixed location (e.g., kiosk, billboard,
     // elevator) or is movable (e.g., taxi), where 1 = fixed, 2 = movable.
@@ -198,7 +198,7 @@ message Publisher {
 
   // The taxonomy in use for the "cat" attribute.
   // Refer to List: Category Taxonomies.
-  optional com.iabtechlab.adcom.enums.CategoryTaxonomy cattax = 5;
+  optional int32 cattax = 5;
 
   // Optional vendor-specific extensions.
   extensions 100 to 9999;
@@ -252,22 +252,22 @@ message Content {
 
   // The taxonomy in use for the "cat" attribute.
   // Refer to List: Category Taxonomies.
-  optional com.iabtechlab.adcom.enums.CategoryTaxonomy cattax = 12;
+  optional int32 cattax = 12;
 
   // Produciton quality.
   // Refer to List: Production Qualities.
-  optional com.iabtechlab.adcom.enums.ProductionQuality prodq = 13;
+  optional int32 prodq = 13;
 
   // Type of content (game, video, text, etc.).
   // Refer to List: Content Contexts
-  optional com.iabtechlab.adcom.enums.ContentContext context = 14;
+  optional int32 context = 14;
 
   // Content rating (e.g., MPAA).
   optional string rating = 15;
 
   // Media rating per IQG guidelines.
   // Refer to List: Media Ratings.
-  optional com.iabtechlab.adcom.enums.MediaRating mrating = 16;
+  optional int32 mrating = 16;
 
   // Array of kewyords describing the content.
   // TOOD(@joelpm): deviates but makes more sense to me.
@@ -326,7 +326,7 @@ message Producer {
 
   // The taxonomy in use for the "cat" attributed.
   // Refer to List: Category Taxonomies.
-  optional com.iabtechlab.adcom.enums.CategoryTaxonomy cattax = 5;
+  optional int32 cattax = 5;
 
   // Optional vendor-specific extensions.
   extensions 100 to 9999;
@@ -382,7 +382,7 @@ message User {
 message Device {
   // The general type of device.
   // Refer to List: Device Types.
-  optional com.iabtechlab.adcom.enums.DeviceType type = 1;
+  optional int32 type = 1;
 
   // Browser user agent string.
   optional string ua = 2;
@@ -406,7 +406,7 @@ message Device {
 
   // Device operating system.
   // Refer to List: Operating Systems.
-  optional com.iabtechlab.adcom.enums.OperatingSystem os = 8;
+  optional int32 os = 8;
 
   // Hardware version of the device (e.g. "5S" for iPhone 5S).
   optional string hwv = 9;
@@ -459,7 +459,7 @@ message Device {
 
   // Network connection type.
   // Refer to List: Connection Types.
-  optional com.iabtechlab.adcom.enums.ConnectionType contype = 23;
+  optional int32 contype = 23;
 
   // Indicates if the geolocation API will be available to Javascript code running in display ad,
   // where false = no, true = yes.
@@ -487,7 +487,7 @@ message Device {
 message Geo {
   // Source of location data; recommended when passing lat/lon.
   // Refer to List: Location Types.
-  optional com.iabtechlab.adcom.enums.LocationType type = 1;
+  optional int32 type = 1;
 
   // Latitude from -90.0 to +90.0, where negative is south.
   optional float lat = 2;
@@ -508,7 +508,7 @@ message Geo {
   // Service or provider used to determine geolocation from IP address if applicable (i.e.,
   // "type" = 2).
   // Refer to List: IP Location Services.
-  optional com.iabtechlab.adcom.enums.LocationService ipserv = 6;
+  optional int32 ipserv = 6;
 
   // Country code using ISO-3166-1-alpha-2. 
   // Note that alpha-3 codes may be encountered and vendors are encouraged to be tolerant of them.
