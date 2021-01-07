@@ -5,6 +5,19 @@ syntax = "proto2";
 
 package com.iabtechlab.adcom.enums;
 
+
+/**
+ * This list identifies the user agent types a user identifier is from.
+ */
+enum AgentType {
+  AgentType_UNKNOWN = 0;
+
+  WEB = 1;
+  APP = 2;
+  PERSON_BASED = 3;
+}
+
+
 /**
  * The following enum is a list of API frameworks either supported by a placement or required
  * by an ad.
