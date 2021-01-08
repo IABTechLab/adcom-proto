@@ -40,7 +40,7 @@ message Ad {
 
   // The taxonomy in use for the "cat" attribute. Refer to List: Category Taxonomies.
   // The default value is 2.
-  optional int32 cattax = 6;
+  optional int32 cattax = 6 [default = 2];
 
   // Language of the creative using ISO-639-1-alpha-2. In practice, vendors using this object may
   // elect an alternate standard (e.g., BCP-47) in which case this must be communicated a priori.

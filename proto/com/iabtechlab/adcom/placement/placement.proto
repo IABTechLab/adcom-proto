@@ -144,7 +144,7 @@ message Placement {
 
     // Unit of size used for placement size (i.e., "w" and "h" attributes). Default = 1.
     // Refer to List: Size Units.
-    optional int32 unit = 14;
+    optional int32 unit = 14 [default = 1];
 
     // Indicator of whether or not the placement supports a buyer-specific privacy notice URL,
     // where false = no, true = yes. Default is false.
@@ -335,19 +335,17 @@ message Placement {
       // list of JavaScript trackers. The sense of restrictions is determined by "wjs".
       repeated string jstrk = 4;
 
-      // Sense of the "jstrk" restriction list, where false = block list, true = whitelist.
+      // Sense of the "jstrk" restriction list, where false = blocklist, true = allowlist.
       // Default = true.
-      // TODO(@joelpm): default for a bool is false, consider making default for spec be false. @joelpm
-      optional bool wjs = 5;
+      optional bool wjs = 5 [default = true];
 
       // Array of domains, top two levels only (e.g., "tracker.com"), that constitute a restriction
       // list of pixel image trackers. The sense of the restrictions is determined by "wpx".
       repeated string pxtrk = 6;
 
-      // Sense of the "pxtrk" restriction list, where false = block list, true = whitelist.
+      // Sense of the "pxtrk" restriction list, where false = blocklist, true = allowlist.
       // Default = true.
-      // TODO(@joelpm): default for a bool is false, consider making default for spec be false. @joelpm
-      optional bool wpx = 7;
+      optional bool wpx = 7 [default = true];
 
       // Optional vendor-specific extensions.
       extensions 100 to 9999;
@@ -418,7 +416,7 @@ message Placement {
     // Units of size used for "w" and "h" attributes.
     // Refer to List: Size Units.
     // Default = 1.
-    optional int32 unit = 15;
+    optional int32 unit = 15 [default = 1];
 
     // Minimum creative duration in seconds.
     optional int32 mindur = 16;
@@ -453,8 +451,7 @@ message Placement {
     // Indicates if letterboxing of 4:3 creatives into a 16:9 window is allowed, where false = no,
     // true = yes.
     // Default = true.
-    // TODO(@joelpm): bool defaults to false - consider changing spec?
-    optional bool boxing = 24;
+    optional bool boxing = 24 [default = true];
 
     // Array of objects indicating that companion ads are available and providing the
     // specifications thereof.
