@@ -3,7 +3,7 @@
  */
 syntax = "proto2";
 
-package com.iabtechlab.adcom.enums;
+package com.iabtechlab.adcom.v1.enums;
 
 
 /**

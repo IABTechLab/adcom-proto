@@ -8,9 +8,9 @@
 syntax = "proto2";
 
 import "google/protobuf/any.proto";
-import "com/iabtechlab/adcom/enums/enums.proto";
+import "com/iabtechlab/adcom/v1/enums/enums.proto";
 
-package com.iabtechlab.adcom.context;
+package com.iabtechlab.adcom.v1.context;
 
 // Make it fast.
 option optimize_for = SPEED;

@@ -7,9 +7,9 @@
 syntax = "proto2";
 
 import "google/protobuf/any.proto";
-import "com/iabtechlab/adcom/enums/enums.proto";
+import "com/iabtechlab/adcom/v1/enums/enums.proto";
 
-package com.iabtechlab.adcom.media;
+package com.iabtechlab.adcom.v1.media;
 
 /**
  * This object is the root of a structure that defines in instance of advertising media. It includes
