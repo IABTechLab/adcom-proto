@@ -7,9 +7,9 @@
 syntax = "proto2";
 
 import "google/protobuf/any.proto";
-import "com/iabtechlab/adcom/enums/enums.proto";
+import "com/iabtechlab/adcom/v1/enums/enums.proto";
 
-package com.iabtechlab.adcom.placement;
+package com.iabtechlab.adcom.v1.placement;
 
 /**
  * This object represents the properties of a placement and the characteristics of ads permitted to
