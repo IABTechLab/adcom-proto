@@ -74,9 +74,8 @@ message DistributionChannel {
     // Indicates if the site has a privacy policy, where false = no, true = yes.
     optional bool privpolicy = 6;
 
-    // Array of keywords about the site.
-    // TODO(@joelpm): deviates from standard, check if this makes sense
-    repeated string keywords = 7;
+    // Comma-separated list of keywords about the site.
+    optional string keywords = 7;
 
     // URL of the page within the site.
     optional string page = 8;
@@ -126,9 +125,8 @@ message DistributionChannel {
     // Indicates if the site has a privacy policy, where false = no, true = yes.
     optional bool privpolicy = 6;
 
-    // Array of keywords about the app.
-    // TODO(@joelpm): deviates from standard, check if this makes sense
-    repeated string keywords = 7;
+    // Comma-separated list of keywords about the app.
+    optional string keywords = 7;
 
     // Bundle or package name of the app (e.g., "com.foo.mygame") and should NOT be app store IDs
     // (e.g., Apple iTunes, Google Play)
@@ -272,16 +270,14 @@ message Content {
   // Refer to List: Media Ratings.
   optional int32 mrating = 17;
 
-  // Array of kewyords describing the content.
-  // TOOD(@joelpm): deviates but makes more sense to me.
+  // Comma-separated list of keywords describing the content.
   repeated string keywords = 18;
 
   // Indication of live content, where false = not live, true = live (e.g. stream, live blog).
   optional bool live = 19;
 
   // Source relationship, where 0 = indirect, 1 = direct.
-  // TODO(@joelpm): rename drctsrcrel and make boolean?
-  optional int32 srcrel = 20;
+  optional bool srcrel = 20;
 
   // Length of content in seconds; typically for video or audio.
   optional int32 len = 21;
@@ -393,9 +389,8 @@ message User {
   // Gender, where "M" = male, "F" = female, "O" = known to be other (i.e., omitted is unknown).
   optional string gender = 4;
 
-  // Array of keywords, interests, or intent.
-  // TODO(@joelpm): deviates.
-  repeated string keywords = 5;
+  // Comma separated list of keywords, interests, or intent.
+  optional string keywords = 5;
 
   // GDPR content string if applicable, complying with the IAB standard Consent String Format in
   // the Transparency and Consent Framework technical specifications.
