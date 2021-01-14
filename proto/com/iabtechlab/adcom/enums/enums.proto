@@ -1,9 +1,22 @@
 /**
  * The following enumerations are referenced by attributes in AdCOM objects.
  */
-syntax = "proto3";
+syntax = "proto2";
 
 package com.iabtechlab.adcom.enums;
+
+
+/**
+ * This list identifies the user agent types a user identifier is from.
+ */
+enum AgentType {
+  AgentType_UNKNOWN = 0;
+
+  WEB = 1;
+  APP = 2;
+  PERSON_BASED = 3;
+}
+
 
 /**
  * The following enum is a list of API frameworks either supported by a placement or required
@@ -665,8 +678,8 @@ enum SizeUnit {
  * The following enum defines the types of volume normalization modes, typically for audio.
  */
 enum VolumeNormalizationMode {
-  NO_NORMALIZATION = 0;
-  VOL_AVG_NORMALIZATION = 1;   // Ad Volume Average Normalized to Content.
+  NO_NORMALIZATION       = 0;
+  VOL_AVG_NORMALIZATION  = 1;  // Ad Volume Average Normalized to Content.
   VOL_PEAK_NORMALIZATION = 2;  // Ad Volume Peak Normalized to Content.
   LOUDNESS_NORMALIZATION = 3;  // Ad Loudness Normalized to Content.
   VOL_CUST_NORMALIZATION = 4;  // Custom Volume Normalization.

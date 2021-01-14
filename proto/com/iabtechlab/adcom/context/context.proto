@@ -5,7 +5,7 @@
  * interacting, the channel's publisher, its content, and any regulations that are in effect
  * (e.g., COPPA, GDPR).
  */
-syntax = "proto3";
+syntax = "proto2";
 
 import "google/protobuf/any.proto";
 import "com/iabtechlab/adcom/enums/enums.proto";
@@ -26,21 +26,21 @@ option optimize_for = SPEED;
 message DistributionChannel {
   // Vendor specific unique identifier of the distribution channel.
   // Recommended.
-  string id = 1;
+  optional string id = 1;
 
   // Displayable name of the distribution channel.
-  string name = 2;
+  optional string name = 2;
 
   // Details about the publisher of the distribution channel.
   // Refer to Object: Publisher.
-  Publisher pub = 3;
+  optional Publisher pub = 3;
 
   // Details about the content within the distribution channel.
   // Refer to Object: Content.
-  Content content = 4;
+  optional Content content = 4;
 
   // The DistributionChannel implementation details.
-  oneof chan {
+  oneof channel_oneof {
     Site site = 5;
     App app = 6;
     DOOH dooh = 7;
@@ -53,7 +53,7 @@ message DistributionChannel {
    */
   message Site {
     // Domain of the site (e.g., "mysite.foo.com").
-    string domain = 1;
+    optional string domain = 1;
 
     // Array of content categories describing the site using IDs from the taxomony indicated in
     // "cattax".
@@ -69,33 +69,33 @@ message DistributionChannel {
 
     // The taxonomy in use for the "cat", "sectcat", "pagecat" attributes.
     // Refer to List: Category Taxonomies.
-    int32 cattax = 5;
+    optional int32 cattax = 5;
 
     // Indicates if the site has a privacy policy, where false = no, true = yes.
-    bool privpolicy = 6;
+    optional bool privpolicy = 6;
 
     // Array of keywords about the site.
     // TODO(@joelpm): deviates from standard, check if this makes sense
     repeated string keywords = 7;
 
     // URL of the page within the site.
-    string page = 8;
+    optional string page = 8;
 
     // Referrer URL that casued navigation to the current page.
-    string ref = 9;
+    optional string ref = 9;
 
     // Search string that caused navigation to the current page.
-    string search = 10;
+    optional string search = 10;
 
     // Indicates if the site has been programmed to optimize layout when viewed on mobile devices,
     // where false = no, true = yes.
-    bool mobile = 11;
+    optional bool mobile = 11;
 
     // Indicates if the page is built with AMP HTML, where false = no, true = yes.
-    bool amp = 12;
+    optional bool amp = 12;
 
     // Optional vendor-specific extensions.
-    google.protobuf.Any ext = 100;
+    extensions 100 to 9999;
   }
 
 
@@ -105,7 +105,7 @@ message DistributionChannel {
    */
   message App {
     // Domain of the app (e.g., "mygame.foo.com")
-    string domain = 1;
+    optional string domain = 1;
 
     // Array of content categories describing the app using IDs from the taxomony indicated in
     // "cattax".
@@ -121,10 +121,10 @@ message DistributionChannel {
 
     // The taxonomy in use for the "cat", "sectcat", "pagecat" attributes.
     // Refer to List: Category Taxonomies.
-    int32 cattax = 5;
+    optional int32 cattax = 5;
 
     // Indicates if the site has a privacy policy, where false = no, true = yes.
-    bool privpolicy = 6;
+    optional bool privpolicy = 6;
 
     // Array of keywords about the app.
     // TODO(@joelpm): deviates from standard, check if this makes sense
@@ -132,23 +132,23 @@ message DistributionChannel {
 
     // Bundle or package name of the app (e.g., "com.foo.mygame") and should NOT be app store IDs
     // (e.g., Apple iTunes, Google Play)
-    string bundle = 8;
+    optional string bundle = 8;
 
     // The ID of the app in an app store (e.g., Apple iTunes, Google Play).
-    string storeid = 9;
+    optional string storeid = 9;
 
     // App store URL for an installed app; for IQG 2.1 compliance.
-    string storeurl = 10;
+    optional string storeurl = 10;
 
     // Application version.
-    string ver = 11;
+    optional string ver = 11;
 
     // Indicator of whether or not this is a paid app, where false = free, true = paid.
     // Default = false
-    bool paid = 12;
+    optional bool paid = 12;
 
     // Optional vendor-specific extensions.
-    google.protobuf.Any ext = 100;
+    extensions 100 to 9999;
   }
 
 
@@ -159,21 +159,21 @@ message DistributionChannel {
   message DOOH {
     // The type of out-of-home venue.
     // Refer to List: DOOH Venue Types.
-    int32 venue = 1;
+    optional int32 venue = 1;
 
     // Indicates whether the DOOH placement is in a fixed location (e.g., kiosk, billboard,
     // elevator) or is movable (e.g., taxi), where 1 = fixed, 2 = movable.
-    int32 fixed = 2;
+    optional int32 fixed = 2;
 
     // The exposure time in seconds per view that the creative will be displayed before refreshing
     // to the next creative.
-    int32 etime = 3;
+    optional int32 etime = 3;
 
     // Minimum DPI for text-based creative elements to display clearly.
-    int32 dpi = 4;
+    optional int32 dpi = 4;
 
     // Optional vendor-specific extensions.
-    google.protobuf.Any ext = 100;
+    extensions 100 to 9999;
   }
 }
 
@@ -184,13 +184,13 @@ message DistributionChannel {
 message Publisher {
   // Vendor-specific unique publisher identifier, as used in ads.txt files.
   // Recommended.
-  string id = 1;
+  optional string id = 1;
 
   // Displayable name of the publisher.
-  string name = 2;
+  optional string name = 2;
 
   // Highest level domain of the publisher (e.g., "publisher.com").
-  string domain = 3;
+  optional string domain = 3;
 
   // Array of content categories that describe the publisher using IDs from the taxonomy indicated
   // in "cattax".
@@ -198,10 +198,10 @@ message Publisher {
 
   // The taxonomy in use for the "cat" attribute.
   // Refer to List: Category Taxonomies.
-  int32 cattax = 5;
+  optional int32 cattax = 5;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 }
 
 
@@ -214,37 +214,37 @@ message Publisher {
  */
 message Content {
   // ID uniquely identifiying the content.
-  string id = 1;
+  optional string id = 1;
 
   // Episode number.
-  int32 episode = 2;
+  optional int32 episode = 2;
 
   // Content title. Video examples: "Search Committee" (television), "Star Wars, A New Hope" (movie),
   // or "Endgame" (made for web). Non-video Example: "Why an Antarctic Glacier Is Melting So Quickly"
   // (Time magazine article).
-  string title = 3;
+  optional string title = 3;
 
   // Content series. Video examples: "The Office" (television), "Star Wars" (movie), or "Arby 'N'
   // The Chief" (made for web). non-video example: "Ecocentric" (Time Magazine blog).
-  string series = 4;
+  optional string series = 4;
 
   // Content season (e.g., "Season 3").
-  string season = 5;
+  optional string season = 5;
 
   // Artist credited with the content.
-  string artist = 6;
+  optional string artist = 6;
 
   // Genre that best describes the content (e.g., rock, pop, etc).
-  string genre = 7;
+  optional string genre = 7;
 
   // Album to which the content belongs; typically for audio.
-  string album = 8;
+  optional string album = 8;
 
   // International Standard Recording Code conforming to ISO-3901.
-  string isrc = 9;
+  optional string isrc = 9;
 
   // URL of the content, for buy-sdie contextualization or review.
-  string url = 10;
+  optional string url = 10;
 
   // Array of content categories describing the content using IDs from the taxonomy indicated in
   // "cattax".
@@ -252,54 +252,57 @@ message Content {
 
   // The taxonomy in use for the "cat" attribute.
   // Refer to List: Category Taxonomies.
-  int32 cattax = 12;
+  optional int32 cattax = 12;
 
   // Produciton quality.
   // Refer to List: Production Qualities.
-  int32 prodq = 13;
+  optional int32 prodq = 13;
 
   // Type of content (game, video, text, etc.).
   // Refer to List: Content Contexts
-  int32 context = 14;
+  optional int32 context = 14;
 
   // Content rating (e.g., MPAA).
-  string rating = 15;
+  optional string rating = 15;
+
+  // User rating of the content (e.g., number of stars, likes, etc.).
+  optional string urating = 16;
 
   // Media rating per IQG guidelines.
   // Refer to List: Media Ratings.
-  int32 mrating = 16;
+  optional int32 mrating = 17;
 
   // Array of kewyords describing the content.
   // TOOD(@joelpm): deviates but makes more sense to me.
-  repeated string keywords = 17;
+  repeated string keywords = 18;
 
   // Indication of live content, where false = not live, true = live (e.g. stream, live blog).
-  bool live = 18;
+  optional bool live = 19;
 
   // Source relationship, where 0 = indirect, 1 = direct.
   // TODO(@joelpm): rename drctsrcrel and make boolean?
-  int32 srcrel = 19;
+  optional int32 srcrel = 20;
 
   // Length of content in seconds; typically for video or audio.
-  int32 len = 20;
+  optional int32 len = 21;
 
   // Content language using ISO-639-1-alpha-2.
-  string lang = 21;
+  optional string lang = 22;
 
   // Indicator of whether or not the content is embedded off-site from the site or app described
   // in those objects (e.g., an embedded video player), where false = no, true = yes.
-  bool embed = 22;
+  optional bool embed = 23;
 
   // Details about the content producer.
   // Refer to Object: Producer.
-  Producer producer = 23;
+  optional Producer producer = 24;
 
   // Additional user data. Each "Data" object represents a different data source.
   // Refer to Object: Data.
-  repeated Data data = 24;
+  repeated Data data = 25;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 }
 
 
@@ -312,13 +315,13 @@ message Producer {
   // Vendor-specific unique producer identifer. Useful if content is syndicated and may be posted
   // a site using using embed tags.
   // Recommended.
-  string id = 1;
+  optional string id = 1;
 
   // Displayable name of the producer.
-  string name = 2;
+  optional string name = 2;
 
   // Highest level domain of the producer (e.g., "producer.com").
-  string domain = 3;
+  optional string domain = 3;
 
   // Array of content categories that describe the producer using IDs from the taxonomy indicated
   // in "cattax".
@@ -326,10 +329,47 @@ message Producer {
 
   // The taxonomy in use for the "cat" attributed.
   // Refer to List: Category Taxonomies.
-  int32 cattax = 5;
+  optional int32 cattax = 5;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
+}
+
+
+/**
+ * See the definition of ExtendedId.
+ */
+message UniversalId {
+  // Cookie or platform-native identifier.
+  optional string id = 1;
+
+  // Type of user agent the match is from. It is highly recommended to set this,
+  // as many DSPs separate app-native IDs from browser-based IDs and require a type
+  // value for ID resolution. Refer to List: Agent Types.
+  optional int32 atype = 2;
+
+  // Extensions.
+  extensions 100 to 9999;
+}
+
+
+/**
+ * Extended identifiers support in the OpenRTB specification allows buyers to
+ * use audience data in real-time bidding.  The exchange should ensure that
+ * business agreements allow for the sending of this data.  Note, it is
+ * assumed that exchanges and DSPs will collaborate with the appropriate
+ * regulatory agencies and ID vendor(s) to ensure compliance.
+ */
+message ExtendedId {
+  // Source or technology provider responsible for the set of included IDs.
+  // Expressed as a top-level domain.
+  optional string source = 1;
+
+  // Array of extended ID UID objects from the given source.
+  repeated UniversalId uids = 2;
+
+  // Extensions.
+  extensions 100 to 9999;
 }
 
 
@@ -341,17 +381,17 @@ message Producer {
  */
 message User {
   // Vendor-specific ID for th euser. At least one of "id" or "buyeruid" is strongly recommended.
-  string id = 1;
+  optional string id = 1;
 
   // Buyer-specific ID for the user as mapped by an exchange for the buyer. At least one of "id" or
   // "buyeruid" is strongly recommended.
-  string buyeruid = 2;
+  optional string buyeruid = 2;
 
   // Year of birth as a 4-digit integer.
-  int32 yob = 3;
+  optional int32 yob = 3;
 
   // Gender, where "M" = male, "F" = female, "O" = known to be other (i.e., omitted is unknown).
-  string gender = 4;
+  optional string gender = 4;
 
   // Array of keywords, interests, or intent.
   // TODO(@joelpm): deviates.
@@ -359,18 +399,21 @@ message User {
 
   // GDPR content string if applicable, complying with the IAB standard Consent String Format in
   // the Transparency and Consent Framework technical specifications.
-  string consent = 6;
+  optional string consent = 6;
 
   // Location of the user's home base (i.e., not necessarily their current location).
   // Refer to Object: Geo.
-  Geo geo = 7;
+  optional Geo geo = 7;
 
   // Additional user data. Each "Data" object represents a different data source.
   // Refer to Object: Data.
   repeated Data data = 8;
 
+  // Extended (third-party) identifiers for this user. Refer to Object: Extended Identifiers.
+  repeated ExtendedId eids = 9;
+
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 }
 
 
@@ -382,95 +425,98 @@ message User {
 message Device {
   // The general type of device.
   // Refer to List: Device Types.
-  int32 type = 1;
+  optional int32 type = 1;
 
   // Browser user agent string.
-  string ua = 2;
+  optional string ua = 2;
 
   // ID sanctioned for advertiser use in the clear (i.e., not hashed).
-  string ifa = 3;
+  optional string ifa = 3;
 
   // Standard "Do Not Track" flag as set in the header by the browser, where false = tracking is
   // unrestricted, true = do not track.
-  bool dnt = 4;
+  optional bool dnt = 4;
 
   // "Limit Ad Tracking" signal commercially endorsed (e.g., iOS, Android), where false = tracking
   // is unrestricted, true = tracking must be limited per commercial guidelines.
-  bool lmt = 5;
+  optional bool lmt = 5;
 
   // Device make (e.g., "Apple").
-  string make = 6;
+  optional string make = 6;
 
   // Device model (e.g., "iPhone").
-  string model = 7;
+  optional string model = 7;
 
   // Device operating system.
   // Refer to List: Operating Systems.
-  int32 os = 8;
+  optional int32 os = 8;
+
+  // Device operating system version (e.g., “3.1.2”).
+  optional string osv = 9;
 
   // Hardware version of the device (e.g. "5S" for iPhone 5S).
-  string hwv = 9;
+  optional string hwv = 10;
 
   // Physical height of the screen in pixels.
-  int32 h = 10;
+  optional int32 h = 11;
 
   // Physical width of the screen in pixels.
-  int32 w = 11;
+  optional int32 w = 12;
 
   // Screen size as pixels per linear inch.
-  int32 ppi = 12;
+  optional int32 ppi = 13;
 
   // The ratio of pixels to device independent pixels.
-  float pxratio = 13;
+  optional float pxratio = 14;
 
   // Support for Javascript, where false = no, true = yes.
-  bool js = 14;
+  optional bool js = 15;
 
   // Browser language using ISO-639-1-alpha-2.
-  string lang = 15;
+  optional string lang = 16;
 
   // IPv4 address closest to device.
-  string ip = 16;
+  optional string ip = 17;
 
   // IPv6 address closest to device.
-  string ipv6 = 17;
+  optional string ipv6 = 18;
 
   // The value of the x-frowarded-for header.
-  string xff = 18;
+  optional string xff = 19;
 
   // Indicator of truncation of any of the IP attributes (i.e., "ip", "ipv6", "xff", where true =
   // yes, false = no (e.g., from 1.2.3.4 to 1.2.3.0).
   // Refer to tools.ietf.org/html/rfc6235#section-4.1.1 for more information on IP truncation.
-  bool iptr = 19;
+  optional bool iptr = 20;
 
   // Carrier or ISP (e.g., "VERIZON") using exchange curated string names which should be published
   // to bidders a priori.
-  string carrier = 20;
+  optional string carrier = 21;
 
   // Mobile carrier as the concatenated MCC-MNC code (e.g., "310-005" identifies Verizon Wireless 
   // CDMA in the USA). Refer to en.wikipedia.org/wiki/Mobile_country_code for further information 
   // and references. Note that the dash between the MCC and MNC parts is required to remove parsing
   // ambiguity.
-  string mccmnc = 21;
+  optional string mccmnc = 22;
 
   // MCC and MNC of the SIM card using the same format as "mccmnc". When both values are available,
   // a difference between them reveals that a user is roaming.
-  string mccmncsim = 22;
+  optional string mccmncsim = 23;
 
   // Network connection type.
   // Refer to List: Connection Types.
-  int32 contype = 23;
+  optional int32 contype = 24;
 
   // Indicates if the geolocation API will be available to Javascript code running in display ad,
   // where false = no, true = yes.
-  bool feofetch = 24;
+  optional bool geofetch = 25;
 
   // Location of the device (i.e., typically the user's current location).
   // Refer to Object: Geo.
-  Geo geo = 25;
+  optional Geo geo = 26;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 }
 
 
@@ -487,55 +533,55 @@ message Device {
 message Geo {
   // Source of location data; recommended when passing lat/lon.
   // Refer to List: Location Types.
-  int32 type = 1;
+  optional int32 type = 1;
 
   // Latitude from -90.0 to +90.0, where negative is south.
-  float lat = 2;
+  optional float lat = 2;
 
   // Longitude from -180.0 to +180.0, where negative is west.
-  float lon = 3;
+  optional float lon = 3;
 
   // Estimated location accuracy in meters; recommended when lat/lon are specified and derived from
   // a device's location services (i.e., type = 1). Note that this is the accuracy as reported from
   // the device. Consult OS specific documentation (e.g., Android, iOS) for exact interpretation.
-  int32 accur = 4;
+  optional int32 accur = 4;
 
   // Number of seconds since this geolocation fix was established. Note that devices may cache 
   // location data across multiple fetches. Ideally, this value should be from the time the actual 
   // fix was taken.
-  int32 lastfix = 5;
+  optional int32 lastfix = 5;
 
   // Service or provider used to determine geolocation from IP address if applicable (i.e.,
   // "type" = 2).
   // Refer to List: IP Location Services.
-  int32 ipserv = 6;
+  optional int32 ipserv = 6;
 
   // Country code using ISO-3166-1-alpha-2. 
   // Note that alpha-3 codes may be encountered and vendors are encouraged to be tolerant of them.
-  string country = 7;
+  optional string country = 7;
 
   // Region code using ISO-3166-2; 2-letter state code if USA
-  string region = 8;
+  optional string region = 8;
 
   // Regional marketing areas such as Nielsen's DMA codes or other similar taxonomy to be agreed 
   // among vendors prior to use. 
   // Note that DMA is a trademarked asset of The Nielsen Company. Vendors are encouraged to ensure 
   // their use of DMAs is properly licensed.
-  string metro = 9;
+  optional string metro = 9;
 
   // City using United Nations Code for Trade & Transport Locations "UN/LOCODE" with the space 
   // between country and city suppressed (e.g., Boston MA, USA = "USBOS"). Refer to UN/LOCODE
   // Code List.
-  string city = 10;
+  optional string city = 10;
 
   // ZIP or postal code.
-  string zip = 11;
+  optional string zip = 11;
 
   // Local time as the number of +/- of minutes from UTC.
-  int32 utcoffset = 12;
+  optional int32 utcoffset = 12;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 }
 
 
@@ -547,17 +593,17 @@ message Geo {
  */
 message Data {
   // Vendor-specific ID for the data provider.
-  string id = 1;
+  optional string id = 1;
 
   // Vendor-specific displayable name for the data provider.
-  string name = 2;
+  optional string name = 2;
 
   // Array of "Segment" objects that contain the actual data values.
   // Refer to Object: Segment.
   repeated Segment segment = 3;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 }
 
 
@@ -568,16 +614,16 @@ message Data {
  */
 message Segment {
   // ID of the data segment specific to the data provider.
-  string id = 1;
+  optional string id = 1;
 
   // Displayable name of the data segment specific to the data provider.
-  string name = 2;
+  optional string name = 2;
 
   // String representation of the data segment value.
-  string value = 3;
+  optional string value = 3;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 }
 
 
@@ -588,12 +634,38 @@ message Regs {
   // Flag indicating if COPPA regulations apply, where false = no, true = yes. 
   // The Children's Online Privacy Protection Act (COPPA) was established by the U.S. Federal Trade
   // Commission.
-  bool coppa = 1;
+  optional bool coppa = 1;
 
   // Flag indicating if GDPR regulations apply, where false = no, true = yes.
   // The General Data Protection Regulation (GDPR) is a regulation of the European Union.
-  bool gdpr = 2;
+  optional bool gdpr = 2;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
+}
+
+
+/**
+ * This object allows lists of restrictions on ad responses to be specified including specific
+ * content categories, advertisers, ads pertaining to specific apps, or creative attributes.
+ */
+message Restrictions {
+  // Block list of content categories using IDs from the taxonomy indicated in cattax.
+  repeated string bcat = 1;
+
+  // The taxonomy in use for the bcat attribute. Refer to List: Category Taxonomies.
+  optional int32 cattax = 2;
+
+  // Block list of advertisers by their domains (e.g., “ford.com”).
+  repeated string badv = 3;
+
+  // Block list of apps for which ads are disallowed. These should be bundle or package names
+  // (e.g., “com.foo.mygame”) and should NOT be app store IDs (e.g., not iTunes store IDs).
+  repeated string bapp = 4;
+
+  // Block list of creative attributes. Refer to List: Creative Attributes.
+  repeated int32 battr = 5;
+
+  // Optional vendor-specific extensions.
+  extensions 100 to 9999;
 }

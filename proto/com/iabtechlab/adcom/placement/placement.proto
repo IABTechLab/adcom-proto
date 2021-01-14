@@ -4,7 +4,7 @@
  * options), placement details and positioning, various restrictions lists (e.g., advertiser 
  * domains, content categories), and more.
  */
-syntax = "proto3";
+syntax = "proto2";
 
 import "google/protobuf/any.proto";
 import "com/iabtechlab/adcom/enums/enums.proto";
@@ -23,81 +23,63 @@ package com.iabtechlab.adcom.placement;
  */
 message Placement {
   // Identifier for specific ad placement or ad tag; unique within a distribution channel.
-  string tagid = 1;
+  optional string tagid = 1;
 
   // Indicates if server-side ad insertion (e.g., stitching an ad into an audio or video stream) is
   // in use and the impact of this on asset and tracker retrieval, where 1 = all client-side,
   // 2 = assets stitched server-side but tracking pixels fired client-side, 3 = all server-side.
   // Default = 0.
-  int32 ssai = 2;
+  optional int32 ssai = 2;
 
   // Name of ad mediation partner, SDK technology, or player responsible for rendering ad (typically
   // video, audio, or mobile); used by some ad servers to customize ad code by partner.
-  string sdk = 3;
+  optional string sdk = 3;
 
   // Version of the SDK specified in the "sdk" attribute.
-  string sdkver = 4;
+  optional string sdkver = 4;
 
   // Indicates if this is a rewarded placement, where 0 = no, 1 = yes. Default = 0.
-  int32 reward = 5;
+  optional int32 reward = 5;
 
-  // Block list of content categories using IDs from the taxonomy indicated in "cattax".
-  repeated string bcats = 6;
-
-  // The taxonomy in use for the "bcat" attribute. Default = 2.
-  // Refer to List: Category Taxonomies.
-  int32 cattax = 7;
-
-  // Block list of advertisers by their domains (e.g., "ford.com").
-  repeated string badvs = 8;
-
-  // Block list of apps for which ads are disallowed. These should be bundle or package names
-  // (e.g., "com.foo.mygame") and should NOT be app store IDs (e.g., not iTunes store IDs).
-  repeated string bapps = 9;
-
-  // Block list of creative attributes.
-  // Refer to List: Creative Attributes.
-  repeated int32 battrs = 10;
-
-  // Whitelist of permitted languages of the creative using ISO-639-1-alpha-2. In practice, 
+  // Allowlist of permitted languages of the creative using ISO-639-1-alpha-2. In practice, 
   // vendors using this object may elect an alternate standard (e.g., BCP-47) in which case
   // this must be communicated a priori. Omission of this attribute indicates there are no
   // restrictions.
-  repeated string wlangs = 11;
+  repeated string wlang = 6;
 
   // Flag to indicate if the creative is secure (i.e., uses HTTPS for all assets and markup),
   // where 0 = no, 1 = yes. There is no default and thus if omitted, the secure state is
   // unknown. However, as a practical matter, the safe assumption is to treat unknown as non-secure.
-  int32 secure = 12;
+  optional int32 secure = 7;
 
   // Indicates if including markup is supported (i.e., the various "ad" attributes throughout the 
   // "Placement" structure), where 0 = no, 1 = yes.
-  int32 admx = 13;
+  optional int32 admx = 8;
 
   // Indicates if retrieving markup via URL reference is supported (i.e., the various "curl"
   // attributes throughout the "placement" structure), where 0 = no, 1 = yes.
-  int32 curlx = 14;
+  optional int32 curlx = 9;
 
   // Placement Subtype Object that indicates that this may be a display placement and provides
   // additional detail related thereto.
   // Refer to Object: DisplayPlacement.
   // * At least one placement subtype is required.
-  DisplayPlacement display = 15;
+  optional DisplayPlacement display = 10;
 
   // Placement Subtype Object that indicates that this may be a video placement and provides
   // additional detail related thereto.
   // Refer to Object: VideoPlacement.
   // * At least one placement subtype is required.
-  VideoPlacement video = 16;
+  optional VideoPlacement video = 11;
 
   // Placement Subtype Object that indicates that this may be an audio placement and provides
   // additional detail related thereto.
   // Refer to Object: AudioPlacement.
   // * At least one placement subtype is required.
-  AudioPlacement audio = 17;
+  optional AudioPlacement audio = 12;
 
   // Optional vendor-specific extensions.
-  google.protobuf.Any ext = 100;
+  extensions 100 to 9999;
 
 
   /**
@@ -108,78 +90,82 @@ message Placement {
   message DisplayPlacement {
     // Placement position on screen.
     // Refer to List: Placement Positions.
-    int32 pos = 1;
+    optional int32 pos = 1;
 
     // Inidicates if this is an interstitial placement, where 0 = no, 1 = yes. Default 0.
-    int32 instl = 2;
+    optional int32 instl = 2;
 
     // Indicates if the placement will be loaded into an iframe or not, where 0 = unfriendly iframe
     // or unknown, 1 = top frame, friendly iframe, or SafeFrame. A value of "1" can be understood to
     // mean that expandable ads are technically capable of being delivered.
-    int32 topframe = 3;
+    optional int32 topframe = 3;
 
     // Array of iframe busters supported by this placement. The meaning of strings in this attribute
     // must be coordinated a priori among vendors.
-    repeated string ifrbusts = 4;
+    repeated string ifrbust = 4;
 
     // Indicates the click type of this placement.
     // Refer to List: Click Types.
-    int32 clktype = 5;
+    optional int32 clktype = 5;
 
     // AMPHTML rendering treatment for AMP ads in this placement, where 1 = early loading,
     // 2 = standard loading.
-    int32 ampren = 6;
+    optional int32 ampren = 6;
 
     // Recommended. The display placement type.
     // Refer to List: Display Placement Types.
-    int32 ptype = 7;
+    optional int32 ptype = 7;
 
     // Recommended. The context of the placement.
     // Refer to List: Display Context Types
-    int32 context = 8;
+    optional int32 context = 8;
 
     // Array of supported mime types (e.g., "image/jpeg", "image/gif"). If omitted, all types are
     // assumed.
-    repeated string mimes = 9;
+    repeated string mime = 9;
 
     // List of supported APIs. If an API is not explicitly listed, it is assumed to be unsupported.
     // Refer to List: API Frameworks.
-    repeated int32 apis = 10;
+    repeated int32 api = 10;
 
     // Creative subtypes permitted.
     // Refer to List: Creative Subtypes - Display.
-    repeated int32 ctypes = 11;
+    repeated int32 ctype = 11;
 
     // Width of the placement in units specified by "unit". Note that this size applies to the 
     // placement itself; permitted creative sizes are specified elsewhere (e.g. "DisplayFormat",
     // "ImageAssetFormat", etc.).
-    int32 w = 12;
+    optional int32 w = 12;
 
     // Width of the placement in units specified by "unit". Note that this size applies to the 
     // placement itself; permitted creative sizes are specified elsewhere (e.g., "DisplayFormat",
     // "ImageAssetFormat", etc.).
-    int32 h = 13;
+    optional int32 h = 13;
 
     // Unit of size used for placement size (i.e., "w" and "h" attributes). Default = 1.
     // Refer to List: Size Units.
-    int32 unit = 14;
+    optional int32 unit = 14 [default = 1];
+
+    // Indicator of whether or not the placement supports a buyer-specific privacy notice URL,
+    // where false = no, true = yes. Default is false.
+    optional bool priv = 15;
 
     // Array of objects that govern the attributes (e.g., sizes) of a banner display placement.
     // Note that including both "displayfmt" and "nativefmt" is not recommended.
     // Refer to Object: DisplayFormat.
-    repeated DisplayFormat displayfmts = 15;
+    repeated DisplayFormat displayfmt = 16;
 
     // This object specified the required and permitted assets and attributes of a native display
     // placement. Note that including both "displayfmt" and "nativefmt" is not recommended.
     // Refer to Object: NativeFormat. 
-    NativeFormat nativefmt = 16;
+    optional NativeFormat nativefmt = 17;
 
     // Array of supported ad tracking events.
     // Refer to Object: EventSpec
-    repeated EventSpec event = 17;
+    repeated EventSpec event = 18;
 
     // Optional vendor-specific extensions.
-    google.protobuf.Any ext = 100;
+    extensions 100 to 9999;
 
 
     /**
@@ -189,26 +175,26 @@ message Placement {
     message DisplayFormat {
       // Absolute width of the creative in units specified by "DisplayPlacement.unit".
       // Note that mixing absolute and relative sizes is not recommended.
-      int32 w = 1;
+      optional int32 w = 1;
 
       // Absolute hight of the creative in units specified by "DisplayPlacement.unit".
       // Note that mixing absolute and relative sizes is not recommended.
-      int32 h = 2;
+      optional int32 h = 2;
 
       // Relative width of the creative when expressing size as a ratio.
       // Note that mixing absolute and relative sizes is not recommended.
-      int32 wratio = 3;
+      optional int32 wratio = 3;
 
       // Relative height of the creative when expressing size as a ratio.
       // Note that mixing absolute and relative sizes is not recommended.
-      int32 hratio = 4;
+      optional int32 hratio = 4;
 
       // Directions in which the creative is permitted to expand.
       // Refer to List: Expandable Directions.
       repeated int32 expdir = 5;
 
       // Optional vendor-specific extensions.
-      google.protobuf.Any ext = 100;
+      extensions 100 to 9999;
     }
 
 
@@ -218,16 +204,12 @@ message Placement {
      * that comprise the native placement.
      */
     message NativeFormat {
-      // Indicator of whether or not the placement supports a buyer-specific privacy note, where
-      // false = no, true = yes. Default is false.
-      bool priv = 1;
-
       // Array of objects that specify the set of native assets and their permitted formats.
       // Refer to Object: AssetFormat.
-      repeated AssetFormat asset = 2;
+      repeated AssetFormat asset = 1;
 
       // Optional vendor-specific extensions.
-      google.protobuf.Any ext = 100;
+      extensions 100 to 9999;
 
 
       /**
@@ -237,21 +219,21 @@ message Placement {
        */
       message AssetFormat {
         // Asset ID, unique within the scope of this placement specification.
-        int32 id = 1;
+        optional int32 id = 1;
 
         // Indicator of whether or not this asset is required.
-        bool req = 2;
+        optional bool req = 2;
 
         // The specific asset format that provides additional asset forma detail.
-        oneof asset {
-          TitleAssetFormat title = 5;
-          ImageAssetFormat image = 6;
-          VideoPlacement   video = 7;
-          DataAssetFormat  data  = 8;
+        oneof asset_oneof {
+          TitleAssetFormat title = 3;
+          ImageAssetFormat img   = 4;
+          VideoPlacement   video = 5;
+          DataAssetFormat  data  = 6;
         }
 
         // Optional vendor-specific extensions.
-        google.protobuf.Any ext = 100;
+        extensions 100 to 9999;
 
 
         /**
@@ -261,10 +243,10 @@ message Placement {
         message TitleAssetFormat {
           // Required. The maximum allowed length of the title value. Recommended lengths are 25,
           // 90, or 140.
-          int32 len = 1;
+          optional int32 len = 1;
 
           // Optional vendor-specific extensions.
-          google.protobuf.Any ext = 100;
+          extensions 100 to 9999;
         }
 
 
@@ -275,7 +257,7 @@ message Placement {
         message ImageAssetFormat {
           // The type of image asset supported.
           // Refer to List: Native Image Asset Types.
-          int32 type = 1;
+          optional int32 type = 1;
 
           // Array of supported mime types (e.g., "image/jpeg", "image/gif"). If omitted, all types
           // are assumed.
@@ -283,30 +265,30 @@ message Placement {
 
           // Absolute width of the image asset in device independent pixels (DIPS).
           // Note that mixing absolute and relative sizes is not recommended.
-          int32 w = 3;
+          optional int32 w = 3;
 
           // Absolute height of the image asset in device independent pixels (DIPS).
           // Note that mixing absolute and relative sizes is not recommended.
-          int32 h = 4;
+          optional int32 h = 4;
 
           // The minimum requested absolute width of the image in device independent pixels (DIPS).
           // This option should be used for any scaling of the images by the client.
-          int32 wmin = 5;
+          optional int32 wmin = 5;
 
           // The minimum requested absolute height of the image in device independent pixels (DIPS).
           // This option should be used for any scaling of the images by the client.
-          int32 hmin = 6;
+          optional int32 hmin = 6;
 
           // Relative width of the image asset when expressing size as a ratio.
           // Note that mixing absolute and relative sizes is not recommended.
-          int32 wratio = 7;
+          optional int32 wratio = 7;
 
           // Relative height of the image asset when expressing size as a ratio.
           // Note that mixing absolute and relative sizes is not recommended.
-          int32 hratio = 8;
+          optional int32 hratio = 8;
 
           // Optional vendor-specific extensions.
-          google.protobuf.Any ext = 100;
+          extensions 100 to 9999;
         }
 
 
@@ -319,13 +301,13 @@ message Placement {
         message DataAssetFormat {
           // The type of data asset supported.
           // Refer to List: Native Data Asset Types.
-          int32 type = 1;
+          optional int32 type = 1;
 
           // The maximum allowed length of the data value.
-          int32 len = 2;
+          optional int32 len = 2;
 
           // Optional vendor-specific extensions.
-          google.protobuf.Any ext = 100;
+          extensions 100 to 9999;
         }
       }
     }
@@ -339,7 +321,7 @@ message Placement {
     message EventSpec {
       // Required. Type of supported ad tracking event.
       // Refer to List: Event Types.
-      int32 type = 1;
+      optional int32 type = 1;
 
       // Array of supported event tracking methods for this event type.
       // Refer to List: Event Tracking Methods.
@@ -353,22 +335,20 @@ message Placement {
       // list of JavaScript trackers. The sense of restrictions is determined by "wjs".
       repeated string jstrk = 4;
 
-      // Sense of the "jstrk" restriction list, where false = block list, true = whitelist.
+      // Sense of the "jstrk" restriction list, where false = blocklist, true = allowlist.
       // Default = true.
-      // TODO(@joelpm): default for a bool is false, consider making default for spec be false. @joelpm
-      bool wjs = 5;
+      optional bool wjs = 5 [default = true];
 
       // Array of domains, top two levels only (e.g., "tracker.com"), that constitute a restriction
       // list of pixel image trackers. The sense of the restrictions is determined by "wpx".
       repeated string pxtrk = 6;
 
-      // Sense of the "pxtrk" restriction list, where false = block list, true = whitelist.
+      // Sense of the "pxtrk" restriction list, where false = blocklist, true = allowlist.
       // Default = true.
-      // TODO(@joelpm): default for a bool is false, consider making default for spec be false. @joelpm
-      bool wpx = 7;
+      optional bool wpx = 7 [default = true];
 
       // Optional vendor-specific extensions.
-      google.protobuf.Any ext = 100;
+      extensions 100 to 9999;
     }
   }
 
@@ -380,39 +360,39 @@ message Placement {
   message VideoPlacement {
     // Placement subtype.
     // Refer to List: Placement Subtypes - Video.
-    int32 ptype = 1;
+    optional int32 ptype = 1;
 
     // Placement position on screen. Refer to List: Placement Positions.
-    int32 pos = 2;
+    optional int32 pos = 2;
 
     // Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll placements. For
     // additional generic values, refer to List: Start Delay Modes.
-    int32 delay = 3;
+    optional int32 delay = 3;
 
     // Indicates if the placement imposes ad skippability, where false = no, true = yes.
-    bool skip = 4;
+    optional bool skip = 4;
 
     // The placement allows creatives of total duration greater than this number of seconds to be
     // skipped; only applicable if the ad is skippable.
     // Default = 0.
-    int32 skipmin = 5;
+    optional int32 skipmin = 5;
 
     // Number of seconds a creative must play before the placement enables skipping; only
     // applicable if the ad is skippable.
     // Default = 0.
-    int32 skipafter = 6;
+    optional int32 skipafter = 6;
 
     // Playback method in use for this placement.
     // Refer to List: Playback Methods.
-    int32 playmethod = 7;
+    optional int32 playmethod = 7;
 
     // The event that causes playback to end for this placement.
     // Refer to List: Playback Cessation Modes.
-    int32 playend = 8;
+    optional int32 playend = 8;
 
     // Indicates the click type of the placement.
     // Refer to List: Click Types.
-    int32 clktype = 9;
+    optional int32 clktype = 9;
 
     // Array of supported mime types (e.g., "video/mp4"). If omitted, all types are assumed.
     // Required.
@@ -428,51 +408,50 @@ message Placement {
     repeated int32 ctype = 12;
 
     // Width of the creative in units specified by "unit".
-    int32 w = 13;
+    optional int32 w = 13;
 
     // Height of the creative in units spcified by "unit".
-    int32 h = 14;
+    optional int32 h = 14;
 
     // Units of size used for "w" and "h" attributes.
     // Refer to List: Size Units.
     // Default = 1.
-    int32 unit = 15;
+    optional int32 unit = 15 [default = 1];
 
     // Minimum creative duration in seconds.
-    int32 mindur = 16;
+    optional int32 mindur = 16;
 
     // Maximum creative duration in seconds.
-    int32 maxdur = 17;
+    optional int32 maxdur = 17;
 
     // Maximum extended creative duration if extension is allowed. If 0, extension is not allowed.
     // If -1, extension is allowed and there is no time limit imposed. If greater than 0, then the
     // value represents the number of seconds of extended play supported beyond the "maxdur" value.
     // Default = 0.
-    int32 maxext = 18;
+    optional int32 maxext = 18;
 
     // Minimum bit rate of the creative in Kbps.
-    int32 minbitr = 19;
+    optional int32 minbitr = 19;
 
     // Maximum bit rate of the creative in Kbps.
-    int32 maxbitr = 20;
+    optional int32 maxbitr = 20;
 
     // Array of supported creative delivery methods. If omitted, all can be assumed.
     // Refer to List: Delivery Methods.
     repeated int32 delivery = 21;
 
     // The maximum number of ads that can be played in an ad pod.
-    int32 maxseq = 22;
+    optional int32 maxseq = 22;
 
     // Indicates if the creative must be linear, nonlinear, etc. If none specified, no restrictions
     // are assumed.
     // Refer to List: Linearity Modes.
-    int32 linear = 23;
+    optional int32 linear = 23;
 
     // Indicates if letterboxing of 4:3 creatives into a 16:9 window is allowed, where false = no,
     // true = yes.
     // Default = true.
-    // TODO(@joelpm): bool defaults to false - consider changing spec?
-    bool boxing = 24;
+    optional bool boxing = 24 [default = true];
 
     // Array of objects indicating that companion ads are available and providing the
     // specifications thereof.
@@ -484,7 +463,7 @@ message Placement {
     repeated int32 comptype = 26;
 
     // Optional vendor-specific extensions.
-    google.protobuf.Any ext = 100;
+    extensions 100 to 9999;
   }
 
 
@@ -495,35 +474,35 @@ message Placement {
   message AudioPlacement {
     // Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll placements.
     // For additional generic values, refer to List: Start Delay Modes.
-    int32 delay = 1;
+    optional int32 delay = 1;
 
     // Indicates if the placement imposes ad skippability, where false = no, true = yes.
-    bool skip = 2;
+    optional bool skip = 2;
 
     // The placement allows creatives of total duration greater than this number of seconds to be
     // skipped; only applicable if the ad is skippable.
     // Default 0.
-    int32 skipmin = 3;
+    optional int32 skipmin = 3;
 
     // Number of seconds a creative must play before the placement enables skipping; only
     // applicable if the ad is skippable.
-    int32 skipafter = 4;
+    optional int32 skipafter = 4;
 
     // Playback method in use for this placement.
     // Refer to List: Playback Methods.
-    int32 playmethod = 5;
+    optional int32 playmethod = 5;
 
     // The event that causes playback to end for this placement.
     // Refer to List: Playback Cessation Modes.
-    int32 playend = 6;
+    optional int32 playend = 6;
 
     // Type of audio feed for this placement.
     // Refer to List: Feed Types.
-    int32 feed = 7;
+    optional int32 feed = 7;
 
     // Volume normalization mode of this placement.
     // Refer to List: Volume Normalization Modes.
-    int32 nvol = 8;
+    optional int32 nvol = 8;
 
     // Array of supported mime types (e.g., "audio/mp4"). If omitted, all types are assumed.
     // Required.
@@ -539,28 +518,28 @@ message Placement {
     repeated int32 ctype = 11;
 
     // Minimum creative duration in seconds.
-    int32 mindur = 12;
+    optional int32 mindur = 12;
 
     // Maximum creative duration in seconds.
-    int32 maxdur = 13;
+    optional int32 maxdur = 13;
 
     // Maximum extended creative duration if extension is allowed. If 0, extension is not allowed.
     // If -1, extension is allowed and there is no time limit imposed. If greater than 0, then the
     // value represents the number of seconds of extended play supported beyond the "maxdur" value.
-    int32 maxext = 14;
+    optional int32 maxext = 14;
 
     // Minimum bit rate of the creative in Kbps.
-    int32 minbitr = 15;
+    optional int32 minbitr = 15;
 
     // Maximum bit rate of the creative in Kbps.
-    int32 maxbitr = 16;
+    optional int32 maxbitr = 16;
 
     // Array of supported creative delivery methods. If omitted, all can be assumed.
     // Refer to List: Delivery Methods.
     repeated int32 delivery = 17;
 
     // The maximum number of  ads that can be played in a pod.
-    int32 maxseq = 18;
+    optional int32 maxseq = 18;
 
     // Array of objects indicating that companion ads are available and providing the
     // specifications thereof.
@@ -572,7 +551,7 @@ message Placement {
     repeated int32 comptype = 20;
 
     // Optional vendor-specific extensions.
-    google.protobuf.Any ext = 100;
+    extensions 100 to 9999;
   }
 
   /**
@@ -581,18 +560,18 @@ message Placement {
    */
   message Companion {
     // Identifier of the companion ad; unique within this placement.
-    string id = 1;
+    optional string id = 1;
 
     // Indicates the companion ad rendering mode relative to the associated video or audio ad,
     // where 0 = concurrent, 1 = end card. For a given placement, typically only one companion
     // at most should be designated as an end card.
-    int32 vcm = 2;
+    optional int32 vcm = 2;
 
     // Display specification object representing the companion ad.
     // Refer to Object: DisplayPlacement.
-    DisplayPlacement display = 3;
+    optional DisplayPlacement display = 3;
   
     // Optional vendor-specific extensions.
-    google.protobuf.Any ext = 100;
+    extensions 100 to 9999;
   }
 }
