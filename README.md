@@ -1,8 +1,7 @@
 # IAB Protobuff Spec for AdCOM (WIP)
 
-
 # Comments
-* Where a field is an array, the name was pluralized.
+=======
 * Where the spec dictates one of several fields be populated, the `oneof` label is used to enforce this.
 * Where the spec recommends that only of several fields be used, the `oneof` label is used to enforce this.
 * Enumerated fields are defined as integer type so they can be extended. The standard values are defined in an `enum`, which may be used for validation.
