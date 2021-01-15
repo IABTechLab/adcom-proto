@@ -1,9 +1,22 @@
 /**
  * The following enumerations are referenced by attributes in AdCOM objects.
  */
-syntax = "proto3";
+syntax = "proto2";
 
 package com.iabtechlab.adcom.enums;
+
+
+/**
+ * This list identifies the user agent types a user identifier is from.
+ */
+enum AgentType {
+  AgentType_UNKNOWN = 0;
+
+  WEB = 1;
+  APP = 2;
+  PERSON_BASED = 3;
+}
+
 
 /**
  * The following enum is a list of API frameworks either supported by a placement or required
@@ -127,75 +140,75 @@ enum ContentContext {
 
 
 message Creative {
-	/**
-	 * The following enum defines a standard list of creative attributes that can describe an actual ad
-	 * or restrictions relative to a given placement.
-	 */
-	enum Attribute {
+  /**
+   * The following enum defines a standard list of creative attributes that can describe an actual ad
+   * or restrictions relative to a given placement.
+   */
+  enum Attribute {
     Attribute_UNKNOWN     = 0; // Equivalent to an unset value.
 
-		AUDIO_AUTOPLAY        = 1;  // Audio Ad (Autoplay).
-		AUDIO_USER_INIT       = 2;  // Audio Ad (User Initiated).
-		EXPANDABLE_AUTO       = 3;  // Expandable (Automatic).
-		EXPANDABLE_ONCLICK    = 4;  // Expandable (User Initiated - Click).
-		EXPANDABLE_ONROLLOVER = 5;  // Expandable (User Initiated - Rollover).
-		IB_VIDEO_AUTO         = 6;  // In-Banner Video Ad (Autoplay).
-		IB_VIDEO_USER_INIT    = 7;  // In-Banner Video Ad (User Initiated).
-		POP                   = 8;  // Pop (e.g., Over, Under, or Upon Exit).
-		PROVOCATIVE           = 9;  // Provocative or Suggestive Imagery.
-		ANNOYING              = 10; // Shaky, Flashing, Flickery, Extreme Animation, Smileys.
-		SURVEYS               = 11; // Surveys.
-		TEXT_ONLY             = 12; // Text Only
-		USER_INTERACTIVE      = 13; // User Interactive (e.g., Embedded Games).
-		DIALOG_ALERT          = 14; // Windows Dialog or Alert Style.
-		AUDIO_ON_OFF          = 15; // Has Audio On/Off Button.
-		SKIP_BUTTON           = 16; // Ad Provides Skip Button (e.g., VPAID-rendered skip button on pre-roll video).
-		ADOBE_FLASH           = 17; // Adobe Flash.
-		RESPONSIVE            = 18; // Responsive; Sizeless; Fluid (i.e., creatives that dynamically resize to env).
-	}
+    AUDIO_AUTOPLAY        = 1;  // Audio Ad (Autoplay).
+    AUDIO_USER_INIT       = 2;  // Audio Ad (User Initiated).
+    EXPANDABLE_AUTO       = 3;  // Expandable (Automatic).
+    EXPANDABLE_ONCLICK    = 4;  // Expandable (User Initiated - Click).
+    EXPANDABLE_ONROLLOVER = 5;  // Expandable (User Initiated - Rollover).
+    IB_VIDEO_AUTO         = 6;  // In-Banner Video Ad (Autoplay).
+    IB_VIDEO_USER_INIT    = 7;  // In-Banner Video Ad (User Initiated).
+    POP                   = 8;  // Pop (e.g., Over, Under, or Upon Exit).
+    PROVOCATIVE           = 9;  // Provocative or Suggestive Imagery.
+    ANNOYING              = 10; // Shaky, Flashing, Flickery, Extreme Animation, Smileys.
+    SURVEYS               = 11; // Surveys.
+    TEXT_ONLY             = 12; // Text Only
+    USER_INTERACTIVE      = 13; // User Interactive (e.g., Embedded Games).
+    DIALOG_ALERT          = 14; // Windows Dialog or Alert Style.
+    AUDIO_ON_OFF          = 15; // Has Audio On/Off Button.
+    SKIP_BUTTON           = 16; // Ad Provides Skip Button (e.g., VPAID-rendered skip button on pre-roll video).
+    ADOBE_FLASH           = 17; // Adobe Flash.
+    RESPONSIVE            = 18; // Responsive; Sizeless; Fluid (i.e., creatives that dynamically resize to env).
+  }
 
 
-	/**
-	 * The following enum defines the various subtypes of audio ad creatives.
-	 */
-	enum AudioType {
+  /**
+   * The following enum defines the various subtypes of audio ad creatives.
+   */
+  enum AudioType {
     AudioType_UNKNOWN = 0;  // Equivalent to an unset value.
 
-		DAAST_1_0      = 1;  // DAAST 1.0
-		DAAST_1_0_WRAP = 2;  // DAAST 1.0 Wrapper
-	}
+    DAAST_1_0      = 1;  // DAAST 1.0
+    DAAST_1_0_WRAP = 2;  // DAAST 1.0 Wrapper
+  }
 
 
-	/**
-	 * The following enum defines the various subtypes of display ad creatives.
-	 */
-	enum DisplayType {
+  /**
+   * The following enum defines the various subtypes of display ad creatives.
+   */
+  enum DisplayType {
     DisplayType_UNKNOWN = 0;  // Equivalent to an unset value.
 
-		HTML     = 1;  // HTML
-		AMPHTML  = 2;  // AMP HTML
-		IMAGE    = 3;  // Structured Image object
-		NATIVE   = 4;  // Structured Native Object
-	}
+    HTML     = 1;  // HTML
+    AMPHTML  = 2;  // AMP HTML
+    IMAGE    = 3;  // Structured Image object
+    NATIVE   = 4;  // Structured Native Object
+  }
 
 
-	/**
-	 * The following enum defines the various subtypes of video ad creatives.
-	 */
-	enum VideoType {
+  /**
+   * The following enum defines the various subtypes of video ad creatives.
+   */
+  enum VideoType {
     VideoType_UNKNOWN = 0;  // Equivalent to an unset value.
 
-		VAST_1_0      = 1;  // VAST 1.0
-		VAST_2_0      = 2;  // VAST 2.0
-		VAST_3_0      = 3;  // VAST 3.0
-		VAST_1_0_WRAP = 4;  // VAST 1.0 Wrapper
-		VAST_2_0_WRAP = 5;  // VAST 2.0 Wrapper
-		VAST_3_0_WRAP = 6;  // VAST 3.0 Wrapper
-		VAST_4_0      = 7;  // VAST 4.0
-		VAST_4_0_WRAP = 8;  // VAST 4.0 Wrapper
-		VAST_4_1      = 9;  // VAST 4.1
-		VAST_4_1_WRAP = 10; // VAST 4.1 Wrapper
-	}
+    VAST_1_0      = 1;  // VAST 1.0
+    VAST_2_0      = 2;  // VAST 2.0
+    VAST_3_0      = 3;  // VAST 3.0
+    VAST_1_0_WRAP = 4;  // VAST 1.0 Wrapper
+    VAST_2_0_WRAP = 5;  // VAST 2.0 Wrapper
+    VAST_3_0_WRAP = 6;  // VAST 3.0 Wrapper
+    VAST_4_0      = 7;  // VAST 4.0
+    VAST_4_0_WRAP = 8;  // VAST 4.0 Wrapper
+    VAST_4_1      = 9;  // VAST 4.1
+    VAST_4_1_WRAP = 10; // VAST 4.1 Wrapper
+  }
 }
 
 
@@ -401,7 +414,7 @@ enum LocationService {
   IP2LOCATION  = 1;  // ip2location.
   NEUSTAR      = 2;  // Neustar (Quova).
   MAXMIND      = 3;  // MaxMind.
-  NETAQUITY    = 4;  // NetAquity (Digital Element).
+  NETACUITY    = 4;  // NetAcuity (Digital Element).
 }
 
 
@@ -524,35 +537,35 @@ enum NativeImageAssetType {
  * The following enum defines the options for device operating system.
  */
 enum OperatingSystem {
-  OTHER_Y      = 0;  // Other Not Listed
-  NINTENDO_3DS = 1;  // Nintendo 3DS System Software
-  ANDROID      = 2;  // Android
-  APPLE_TV     = 3;  // Apple TV Software
-  ASHA         = 4;  // Asha
-  BADA         = 5;  // Bada
-  BLACKBERRY   = 6;  // BlackBerry
-  BREW         = 7;  // BREW
-  CHROMEOS     = 8;  // ChromeOS
-  DARWIN       = 9;  // Darwin
-  FIREOS       = 10; // FireOS
-  FIREFOXOS    = 11; // FirefoxOS
-  HELENOS      = 12; // HelenOS
-  IOS          = 13; // iOS
-  LINUX        = 14; // Linux
-  MACOS        = 15; // MacOS
-  MEEGO        = 16; // MeeGo
-  MORPHOS      = 17; // MorphOS
-  NETBSD       = 18; // NetBSD
-  NUCLEUSPLUS  = 19; // NucleusPLUS
-  PSVITA       = 20; // PS Vita System Software
-  PS3          = 21; // PS3 System Software
-  PS4          = 22; // PS4 System Software
-  PSP          = 23; // PSP System Software
-  SYMBIAN      = 24; // Symbian
-  TIZEN        = 25; // Tizen
-  WATCHOS      = 26; // WatchOS
-  WEBOS        = 27; // WebOS
-  WINDOWS      = 28; // Windows
+  OTHER_NOT_LISTED = 0;  // Other Not Listed
+  NINTENDO_3DS     = 1;  // Nintendo 3DS System Software
+  ANDROID          = 2;  // Android
+  APPLE_TV         = 3;  // Apple TV Software
+  ASHA             = 4;  // Asha
+  BADA             = 5;  // Bada
+  BLACKBERRY       = 6;  // BlackBerry
+  BREW             = 7;  // BREW
+  CHROMEOS         = 8;  // ChromeOS
+  DARWIN           = 9;  // Darwin
+  FIREOS           = 10; // FireOS
+  FIREFOXOS        = 11; // FirefoxOS
+  HELENOS          = 12; // HelenOS
+  IOS              = 13; // iOS
+  LINUX            = 14; // Linux
+  MACOS            = 15; // MacOS
+  MEEGO            = 16; // MeeGo
+  MORPHOS          = 17; // MorphOS
+  NETBSD           = 18; // NetBSD
+  NUCLEUSPLUS      = 19; // NucleusPLUS
+  PSVITA           = 20; // PS Vita System Software
+  PS3              = 21; // PS3 System Software
+  PS4              = 22; // PS4 System Software
+  PSP              = 23; // PSP System Software
+  SYMBIAN          = 24; // Symbian
+  TIZEN            = 25; // Tizen
+  WATCHOS          = 26; // WatchOS
+  WEBOS            = 27; // WebOS
+  WINDOWS          = 28; // Windows
 }
 
 
@@ -665,8 +678,8 @@ enum SizeUnit {
  * The following enum defines the types of volume normalization modes, typically for audio.
  */
 enum VolumeNormalizationMode {
-  NO_NORMALIZATION = 0;
-  VOL_AVG_NORMALIZATION = 1;   // Ad Volume Average Normalized to Content.
+  NO_NORMALIZATION       = 0;
+  VOL_AVG_NORMALIZATION  = 1;  // Ad Volume Average Normalized to Content.
   VOL_PEAK_NORMALIZATION = 2;  // Ad Volume Peak Normalized to Content.
   LOUDNESS_NORMALIZATION = 3;  // Ad Loudness Normalized to Content.
   VOL_CUST_NORMALIZATION = 4;  // Custom Volume Normalization.

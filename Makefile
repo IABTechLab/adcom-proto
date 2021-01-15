@@ -1,25 +1,31 @@
 # Build the docs for the proto3 definition.
 
+LANGUAGES=cpp java go csharp objc python php ruby js
+
 bindings:
-	protoc --proto_path proto proto/com/iabtechlab/adcom/adcom.proto --java_out=java --go_out=go
+	for x in ${LANGUAGES}; do \
+		mkdir -p $${x}; \
+		protoc --proto_path proto proto/com/iabtechlab/adcom/adcom.proto --$${x}_out=$${x}; \
+	done
 
 check:
-	cd proto/ && prototool lint 
+	cd proto && prototool lint
 
 clean:
-	rm -fr java/com && \
-	rm -fr go/proto
+	for x in ${LANGUAGES}; do \
+		rm -fr $${x}/*; \
+	done
 
 docs:
 	docker run --rm \
-  -v ${PWD}/doc:/out \
-  -v ${PWD}/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=markdown,README.md \
-	com/iabtechlab/adcom/adcom.proto \
-	com/iabtechlab/adcom/enums/enums.proto \
-	com/iabtechlab/adcom/context/context.proto \
-	com/iabtechlab/adcom/media/media.proto \
-	com/iabtechlab/adcom/placement/placement.proto
+		-v ${PWD}/doc:/out \
+		-v ${PWD}/proto:/protos \
+		pseudomuto/protoc-gen-doc --doc_opt=markdown,README.md \
+		com/iabtechlab/adcom/adcom.proto \
+		com/iabtechlab/adcom/enums/enums.proto \
+		com/iabtechlab/adcom/context/context.proto \
+		com/iabtechlab/adcom/media/media.proto \
+		com/iabtechlab/adcom/placement/placement.proto
 
 watch:
 	fswatch  -r ./proto/ | xargs -n1 make docs
