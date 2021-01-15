@@ -45,7 +45,7 @@ message Placement {
   repeated string bcats = 6;
 
   // The taxonomy in use for the "bcat" attribute. Default = 2.
-  // Refer to List: Category Taxonomies.
+  // Refer to List: com.iabtechlab.adcom.enums.CategoryTaxonomy.
   int32 cattax = 7;
 
   // Block list of advertisers by their domains (e.g., "ford.com").
@@ -56,7 +56,7 @@ message Placement {
   repeated string bapps = 9;
 
   // Block list of creative attributes.
-  // Refer to List: Creative Attributes.
+  // Refer to List: com.iabtechlab.adcom.enums.Creative.Attribute.
   repeated int32 battrs = 10;
 
   // Whitelist of permitted languages of the creative using ISO-639-1-alpha-2. In practice, 
@@ -107,7 +107,7 @@ message Placement {
    */
   message DisplayPlacement {
     // Placement position on screen.
-    // Refer to List: Placement Positions.
+    // Refer to List: com.iabtechlab.adcom.enums.PlacementPosition.
     int32 pos = 1;
 
     // Inidicates if this is an interstitial placement, where 0 = no, 1 = yes. Default 0.
@@ -123,7 +123,7 @@ message Placement {
     repeated string ifrbusts = 4;
 
     // Indicates the click type of this placement.
-    // Refer to List: Click Types.
+    // Refer to List: com.iabtechlab.adcom.enums.ClickType.
     int32 clktype = 5;
 
     // AMPHTML rendering treatment for AMP ads in this placement, where 1 = early loading,
@@ -131,11 +131,11 @@ message Placement {
     int32 ampren = 6;
 
     // Recommended. The display placement type.
-    // Refer to List: Display Placement Types.
+    // Refer to List: com.iabtechlab.adcom.enums.DisplayPlacementType.
     int32 ptype = 7;
 
     // Recommended. The context of the placement.
-    // Refer to List: Display Context Types
+    // Refer to List: com.iabtechlab.adcom.enums.DisplayContextType.
     int32 context = 8;
 
     // Array of supported mime types (e.g., "image/jpeg", "image/gif"). If omitted, all types are
@@ -143,11 +143,11 @@ message Placement {
     repeated string mimes = 9;
 
     // List of supported APIs. If an API is not explicitly listed, it is assumed to be unsupported.
-    // Refer to List: API Frameworks.
+    // Refer to List: com.iabtechlab.adcom.enums.APIFramework.
     repeated int32 apis = 10;
 
     // Creative subtypes permitted.
-    // Refer to List: Creative Subtypes - Display.
+    // Refer to List: com.iabtechlab.adcom.enums.Creative.DisplayType.
     repeated int32 ctypes = 11;
 
     // Width of the placement in units specified by "unit". Note that this size applies to the 
@@ -161,7 +161,7 @@ message Placement {
     int32 h = 13;
 
     // Unit of size used for placement size (i.e., "w" and "h" attributes). Default = 1.
-    // Refer to List: Size Units.
+    // Refer to List: com.iabtechlab.adcom.enums.SizeUnit.
     int32 unit = 14;
 
     // Array of objects that govern the attributes (e.g., sizes) of a banner display placement.
@@ -204,7 +204,7 @@ message Placement {
       int32 hratio = 4;
 
       // Directions in which the creative is permitted to expand.
-      // Refer to List: Expandable Directions.
+      // Refer to List: com.iabtechlab.adcom.enums.ExpandableDirection.
       repeated int32 expdir = 5;
 
       // Optional vendor-specific extensions.
@@ -274,7 +274,7 @@ message Placement {
          */
         message ImageAssetFormat {
           // The type of image asset supported.
-          // Refer to List: Native Image Asset Types.
+          // Refer to List: com.iabtechlab.adcom.enums.NativeImageAssetType.
           int32 type = 1;
 
           // Array of supported mime types (e.g., "image/jpeg", "image/gif"). If omitted, all types
@@ -318,7 +318,7 @@ message Placement {
          */
         message DataAssetFormat {
           // The type of data asset supported.
-          // Refer to List: Native Data Asset Types.
+          // Refer to List: com.iabtechlab.adcom.enums.NativeDataAssetType.
           int32 type = 1;
 
           // The maximum allowed length of the data value.
@@ -338,15 +338,15 @@ message Placement {
      */
     message EventSpec {
       // Required. Type of supported ad tracking event.
-      // Refer to List: Event Types.
+      // Refer to List: com.iabtechlab.adcom.enums.EventType.
       int32 type = 1;
 
       // Array of supported event tracking methods for this event type.
-      // Refer to List: Event Tracking Methods.
+      // Refer to List: com.iabtechlab.adcom.enums.EventTrackingMethod.
       repeated int32 method = 2;
 
       // Event tracking APIs available for us; only relevant for JavaScript method trackers.
-      // Refer to List: API Frameworks.
+      // Refer to List: com.iabtechlab.adcom.enums.APIFramework.
       repeated int32 api = 3;
 
       // Array of domains, top two levels only (e.g., "tracker.com"), that constitutes a restriction
@@ -379,10 +379,10 @@ message Placement {
    */
   message VideoPlacement {
     // Placement subtype.
-    // Refer to List: Placement Subtypes - Video.
+    // Refer to List: com.iabtechlab.adcom.enums.VideoPlacementSubtype.
     int32 ptype = 1;
 
-    // Placement position on screen. Refer to List: Placement Positions.
+    // Placement position on screen. Refer to List: com.iabtechlab.adcom.enums.PlacementPosition.
     int32 pos = 2;
 
     // Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll placements. For
@@ -403,15 +403,15 @@ message Placement {
     int32 skipafter = 6;
 
     // Playback method in use for this placement.
-    // Refer to List: Playback Methods.
+    // Refer to List: com.iabtechlab.adcom.enums.PlaybackMethod.
     int32 playmethod = 7;
 
     // The event that causes playback to end for this placement.
-    // Refer to List: Playback Cessation Modes.
+    // Refer to List: com.iabtechlab.adcom.enums.PlaybackCessationMode.
     int32 playend = 8;
 
     // Indicates the click type of the placement.
-    // Refer to List: Click Types.
+    // Refer to List: com.iabtechlab.adcom.enums.ClickType.
     int32 clktype = 9;
 
     // Array of supported mime types (e.g., "video/mp4"). If omitted, all types are assumed.
@@ -420,11 +420,11 @@ message Placement {
 
     // List of supported APIs for this placement. If an API is not explicitly listed, it is
     // assumed to be unsupported.
-    // Refer to List: API Frameworks.
+    // Refer to List: com.iabtechlab.adcom.enums.APIFramework.
     repeated int32 api = 11;
 
     // Creative subtypes permitted for this placement.
-    // Refer to List: Creative Subtypes - Video.
+    // Refer to List: com.iabtechlab.adcom.enums.Creative.VideoType.
     repeated int32 ctype = 12;
 
     // Width of the creative in units specified by "unit".
@@ -434,7 +434,7 @@ message Placement {
     int32 h = 14;
 
     // Units of size used for "w" and "h" attributes.
-    // Refer to List: Size Units.
+    // Refer to List: com.iabtechlab.adcom.enums.SizeUnit.
     // Default = 1.
     int32 unit = 15;
 
@@ -457,7 +457,7 @@ message Placement {
     int32 maxbitr = 20;
 
     // Array of supported creative delivery methods. If omitted, all can be assumed.
-    // Refer to List: Delivery Methods.
+    // Refer to List: com.iabtechlab.adcom.enums.DeliveryMethod.
     repeated int32 delivery = 21;
 
     // The maximum number of ads that can be played in an ad pod.
@@ -465,7 +465,7 @@ message Placement {
 
     // Indicates if the creative must be linear, nonlinear, etc. If none specified, no restrictions
     // are assumed.
-    // Refer to List: Linearity Modes.
+    // Refer to List: com.iabtechlab.adcom.enums.LinearityMode.
     int32 linear = 23;
 
     // Indicates if letterboxing of 4:3 creatives into a 16:9 window is allowed, where false = no,
@@ -480,7 +480,7 @@ message Placement {
     repeated Companion comp = 25;
 
     // Supported companion ad types; recommended if companion ads are specified in "comp".
-    // Refer to List: Companion Types.
+    // Refer to List: com.iabtechlab.adcom.enums.CompanionType.
     repeated int32 comptype = 26;
 
     // Optional vendor-specific extensions.
@@ -510,19 +510,19 @@ message Placement {
     int32 skipafter = 4;
 
     // Playback method in use for this placement.
-    // Refer to List: Playback Methods.
+    // Refer to List: com.iabtechlab.adcom.enums.PlaybackMethod.
     int32 playmethod = 5;
 
     // The event that causes playback to end for this placement.
-    // Refer to List: Playback Cessation Modes.
+    // Refer to List: com.iabtechlab.adcom.enums.PlaybackCessationMode.
     int32 playend = 6;
 
     // Type of audio feed for this placement.
-    // Refer to List: Feed Types.
+    // Refer to List: com.iabtechlab.adcom.enums.FeedType.
     int32 feed = 7;
 
     // Volume normalization mode of this placement.
-    // Refer to List: Volume Normalization Modes.
+    // Refer to List: com.iabtechlab.adcom.enums.VolumeNormalizationMode.
     int32 nvol = 8;
 
     // Array of supported mime types (e.g., "audio/mp4"). If omitted, all types are assumed.
@@ -531,11 +531,11 @@ message Placement {
 
     // List of supported APIs for this placement. If an API is not explicitly listed, it is assumed
     // to be unsupported.
-    // Refer to List: API Frameworks.
+    // Refer to List: com.iabtechlab.adcom.enums.APIFramework.
     repeated int32 api = 10;
 
     // Creative subtypes permitted for this placement.
-    // Refer to List: Creative Subtypes - Audio.
+    // Refer to List: com.iabtechlab.adcom.enums.Creative.AudioType.
     repeated int32 ctype = 11;
 
     // Minimum creative duration in seconds.
@@ -556,7 +556,7 @@ message Placement {
     int32 maxbitr = 16;
 
     // Array of supported creative delivery methods. If omitted, all can be assumed.
-    // Refer to List: Delivery Methods.
+    // Refer to List: com.iabtechlab.adcom.enums.DeliveryMethod.
     repeated int32 delivery = 17;
 
     // The maximum number of  ads that can be played in a pod.
@@ -568,7 +568,7 @@ message Placement {
     repeated Companion comp = 19;
 
     // Supported companion ad types; recommended if companion ads are specified in "comp".
-    // Refer to List: Companion Types
+    // Refer to List: com.iabtechlab.adcom.enums.CompanionType.
     repeated int32 comptype = 20;
 
     // Optional vendor-specific extensions.
