@@ -1,6 +1,6 @@
 # Build the docs for the proto3 definition.
 
-LANGUAGES=cpp
+LANGUAGES=cpp java go csharp objc python php ruby js
 
 bindings:
 	for x in ${LANGUAGES}; do \

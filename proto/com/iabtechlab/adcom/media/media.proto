@@ -38,7 +38,7 @@ message Ad {
   // Array of content categories describing the ad using IDs from the taxonomy indicated in "cattax".
   repeated string cat = 5;
 
-  // The taxonomy in use for the "cat" attribute. Refer to List: Category Taxonomies.
+  // The taxonomy in use for the "cat" attribute. Refer to List: com.iabtechlab.adcom.enums.CategoryTaxonomy.
   // The default value is 2.
   optional int32 cattax = 6 [default = 2];
 
@@ -48,7 +48,7 @@ message Ad {
   // a banner with just a company logo).
   optional string lang = 7;
 
-  // Set of attributes describing the creative. Refer to List: Creative Attributes.
+  // Set of attributes describing the creative. Refer to List: com.iabtechlab.adcom.enums.Creative.Attribute.
   optional int32 attr = 8;
 
   // Flag to indicate if the creative is secure (i.e., uses HTTPS for all assets and markup), where
@@ -56,7 +56,7 @@ message Ad {
   // as a practical matter, the safe  assumption is to treat unknown as non-secure.
   optional bool secure = 9;
 
-  // Media rating per IQG guidelines. Refer to List: Media Ratings.
+  // Media rating per IQG guidelines. Refer to List: com.iabtechlab.adcom.enums.MediaRating.
   optional int32 mrating = 10;
 
   // Date/time of the original instantiation of this ad (i.e., this object or any of its children)
@@ -105,10 +105,10 @@ message Ad {
     // Mime type of the ad (e.g., "image/jpeg").
     optional string mime = 1;
 
-    // API required by the ad if applicable. Refer to List: API Frameworks.
+    // API required by the ad if applicable. Refer to List: com.iabtechlab.adcom.enums.APIFramework.
     optional int32 api = 2;
 
-    // Subtype of display creative. Refer to List: Creative Subtypes - Display.
+    // Subtype of display creative. Refer to List: com.iabtechlab.adcom.enums.Creative.DisplayType.
     repeated int32 ctype = 3;
 
     // Absolute width of the creative in device independent pixels (DIPS), typically for non-native
@@ -274,7 +274,7 @@ message Ad {
           // Recommended. Height of the image asset in device independent pixels (DIPS).
           optional int32 h = 3;
 
-          // The type of image represented by this asset. Refer to List: Native Image Asset Types.
+          // The type of image represented by this asset. Refer to List: com.iabtechlab.adcom.enums.NativeImageAssetType.
           optional int32 type = 4;
 
           // Optional vendor-specific extensions.
@@ -318,7 +318,7 @@ message Ad {
           // provided in List: Native Data Asset Types, where applicable.
           optional int32 len = 2;
 
-          // The type of data represented by this asset. Refer to List: Native Data Asset Types.
+          // The type of data represented by this asset. Refer to List: com.iabtechlab.adcom.enums.NativeDataAssetType.
           optional int32 type = 3;
 
           // Optional vendor-specific extensions.
@@ -334,15 +334,15 @@ message Ad {
      */
     message Event {
       // Required. Type of event to track.
-      // Refer to List: Event Types.
+      // Refer to List: com.iabtechlab.adcom.enums.EventType.
       optional int32 type = 1;
 
       // Required. Method of tracking requested.
-      // Refer to List: Event Tracking Methods.
+      // Refer to List: com.iabtechlab.adcom.enums.EventTrackingMethod.
       optional int32 method = 2;
 
       // The APIs being used by the tracker; only relevant when the tracking method is JavaScript
-      // Refer to List: API Frameworks.
+      // Refer to List: com.iabtechlab.adcom.enums.APIFramework.
       repeated int32 api = 3;
 
       // The URL of the tracking pixel or JavaScript tag, respectively.
@@ -368,11 +368,11 @@ message Ad {
     repeated string mime = 1;
 
     // API required by the ad if applicable.
-    // Refer to List: API Frameworks
+    // Refer to List: com.iabtechlab.adcom.enums.APIFramework.
     repeated int32 api = 2;
 
     // Subtype of video creative.
-    // Refer to List: Creative Subtypes - Video.
+    // Refer to List: com.iabtechlab.adcom.enums.Creative.VideoType.
     repeated int32 ctype = 3;
 
     // Duration of the video creative in seconds.
@@ -402,11 +402,11 @@ message Ad {
     repeated string mime = 1;
 
     // API required by the ad if applicable.
-    // Refer to List: API Frameworks
+    // Refer to List: com.iabtechlab.adcom.enums.APIFramework.
     repeated int32 api = 2;
 
-    // Subtype of video creative.
-    // Refer to List: Creative Subtypes - Audio.
+    // Subtype of audio creative.
+    // Refer to List: com.iabtechlab.adcom.enums.Creative.AudioType.
     repeated int32 ctype = 3;
 
     // Duration of the audio creative in seconds.
@@ -417,7 +417,7 @@ message Ad {
       // Audio markup (e.g., DAAST document) for the asset.  
       string adm = 5;
 
-      // A URL that returns the video markup (e.g., DAAST document) for the asset. If this ad 
+      // A URL that returns the audio markup (e.g., DAAST document) for the asset. If this ad 
       // is matched to a placement specification, the "Placement.ref" attribute indicates if 
       // this markup retrieval option is supported. 
       string curl = 6;
@@ -432,7 +432,7 @@ message Ad {
    * example, when scanning for malware or otherwise performing ad quality reviews.
    */
   message Audit {
-    // The audit status of the ad. Refer to List: Audit Status Codes.
+    // The audit status of the ad. Refer to List: com.iabtechlab.adcom.enums.AuditStatusCode.
     optional int32 status = 1;
 
     // One or more human-readable explanations as to reasons for rejection or any changes to fields
