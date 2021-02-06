@@ -39,7 +39,7 @@ message Placement {
   optional string sdkver = 4;
 
   // Indicates if this is a rewarded placement, where 0 = no, 1 = yes. Default = 0.
-  optional int32 reward = 5;
+  optional bool reward = 5;
 
   // Allowlist of permitted languages of the creative using ISO-639-1-alpha-2. In practice, 
   // vendors using this object may elect an alternate standard (e.g., BCP-47) in which case
