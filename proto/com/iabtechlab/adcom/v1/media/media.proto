@@ -372,7 +372,7 @@ message Ad {
     repeated int32 api = 2;
 
     // Subtype of video creative.
-    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.VideoType.
+    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.AudioVideoType.
     repeated int32 ctype = 3;
 
     // Duration of the video creative in seconds.
@@ -406,7 +406,7 @@ message Ad {
     repeated int32 api = 2;
 
     // Subtype of audio creative.
-    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.AudioType.
+    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.AudioVideoType.
     repeated int32 ctype = 3;
 
     // Duration of the audio creative in seconds.
