@@ -41,9 +41,9 @@ message Placement {
   // Indicates if this is a rewarded placement, where 0 = no, 1 = yes. Default = 0.
   optional bool reward = 5;
 
-  // Allowlist of permitted languages of the creative using ISO-639-1-alpha-2. In practice, 
+  // Allow list of permitted languages of the creative using ISO-639-1-alpha-2. In practice,
   // vendors using this object may elect an alternate standard (e.g., BCP-47) in which case
-  // this must be communicated a priori. Omission of this attribute indicates there are no
+  // this must be communicated beforehand. Omission of this attribute indicates there are no
   // restrictions.
   repeated string wlang = 6;
 
@@ -101,7 +101,7 @@ message Placement {
     optional int32 topframe = 3;
 
     // Array of iframe busters supported by this placement. The meaning of strings in this attribute
-    // must be coordinated a priori among vendors.
+    // must be coordinated beforehand among vendors.
     repeated string ifrbust = 4;
 
     // Indicates the click type of this placement.
@@ -335,7 +335,7 @@ message Placement {
       // list of JavaScript trackers. The sense of restrictions is determined by "wjs".
       repeated string jstrk = 4;
 
-      // Sense of the "jstrk" restriction list, where false = blocklist, true = allowlist.
+      // Sense of the "jstrk" restriction list, where false = block list, true = allow list.
       // Default = true.
       optional bool wjs = 5 [default = true];
 
@@ -343,7 +343,7 @@ message Placement {
       // list of pixel image trackers. The sense of the restrictions is determined by "wpx".
       repeated string pxtrk = 6;
 
-      // Sense of the "pxtrk" restriction list, where false = blocklist, true = allowlist.
+      // Sense of the "pxtrk" restriction list, where false = block list, true = allow list.
       // Default = true.
       optional bool wpx = 7 [default = true];
 
@@ -444,7 +444,8 @@ message Placement {
     optional int32 maxseq = 22;
 
     // Indicates if the creative must be linear, nonlinear, etc. If none specified, no restrictions
-    // are assumed.
+    // are assumed. Note that this field describes the expected VAST response and not whether a
+    // placement is in-stream, out-stream, etc. For that, see ptype.
     // Refer to List: com.iabtechlab.adcom.v1.enums.LinearityMode.
     optional int32 linear = 23;
 
@@ -461,6 +462,15 @@ message Placement {
     // Supported companion ad types; recommended if companion ads are specified in "comp".
     // Refer to List: com.iabtechlab.adcom.v1.enums.CompanionType.
     repeated int32 comptype = 26;
+
+    // Directions in which the creative (video placement) is permitted to expand.
+    // Refer to List: com.iabtechlab.adcom.v1.enums.ExpandableDirection.
+    optional int32 expdir = 27;
+
+    // Directions in which the creative (video overlay) is permitted to expand. This is primarily
+    // used for non-linear videos.
+    // Refer to List: com.iabtechlab.adcom.v1.enums.ExpandableDirection.
+    optional int32 overlayexpdir = 28;
 
     // Optional vendor-specific extensions.
     extensions 100 to 9999;
@@ -549,6 +559,10 @@ message Placement {
     // Supported companion ad types; recommended if companion ads are specified in "comp".
     // Refer to List: com.iabtechlab.adcom.v1.enums.CompanionType.
     repeated int32 comptype = 20;
+
+    // Directions in which the creative (overlay) is permitted to expand.
+    // Refer to List: com.iabtechlab.adcom.v1.enums.ExpandableDirection.
+    optional int32 overlayexpdir = 21;
 
     // Optional vendor-specific extensions.
     extensions 100 to 9999;
