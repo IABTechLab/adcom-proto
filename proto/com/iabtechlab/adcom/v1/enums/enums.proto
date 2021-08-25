@@ -32,6 +32,8 @@ enum APIFramework {
   MRAID_2_0  = 5;  // MRAID 2.0
   MRAID_3_0  = 6;  // MRAID 3.0
   OMID_1_0   = 7;  // OMID 1.0
+  SIMID_1_0  = 8;  // SIMID 1.0
+  SIMID_1_1  = 9;  // SIMID 1.1
 }
 
 
