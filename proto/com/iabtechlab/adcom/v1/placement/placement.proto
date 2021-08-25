@@ -404,7 +404,7 @@ message Placement {
     repeated int32 api = 11;
 
     // Creative subtypes permitted for this placement.
-    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.VideoType.
+    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.AudioVideoType.
     repeated int32 ctype = 12;
 
     // Width of the creative in units specified by "unit".
@@ -514,7 +514,7 @@ message Placement {
     repeated int32 api = 10;
 
     // Creative subtypes permitted for this placement.
-    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.AudioType.
+    // Refer to List: com.iabtechlab.adcom.v1.enums.Creative.AudioVideoType.
     repeated int32 ctype = 11;
 
     // Minimum creative duration in seconds.

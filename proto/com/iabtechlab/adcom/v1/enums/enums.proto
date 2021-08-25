@@ -169,13 +169,25 @@ message Creative {
 
 
   /**
-   * The following enum defines the various subtypes of audio ad creatives.
+   * The following enum defines the various subtypes of audio and video ad creatives.
    */
-  enum AudioType {
-    AudioType_UNKNOWN = 0;  // Equivalent to an unset value.
+  enum AudioVideoType {
+    AudioVideoType_UNKNOWN = 0;  // Equivalent to an unset value.
 
-    DAAST_1_0      = 1;  // DAAST 1.0
-    DAAST_1_0_WRAP = 2;  // DAAST 1.0 Wrapper
+    VAST_1_0       = 1;  // VAST 1.0
+    VAST_2_0       = 2;  // VAST 2.0
+    VAST_3_0       = 3;  // VAST 3.0
+    VAST_1_0_WRAP  = 4;  // VAST 1.0 Wrapper
+    VAST_2_0_WRAP  = 5;  // VAST 2.0 Wrapper
+    VAST_3_0_WRAP  = 6;  // VAST 3.0 Wrapper
+    VAST_4_0       = 7;  // VAST 4.0
+    VAST_4_0_WRAP  = 8;  // VAST 4.0 Wrapper
+    DAAST_1_0      = 9;  // DAAST 1.0
+    DAAST_1_0_WRAP = 10; // DAAST 1.0 Wrapper
+    VAST_4_1       = 11; // VAST 4.1
+    VAST_4_1_WRAP  = 12; // VAST 4.1 Wrapper
+    VAST_4_2       = 13; // VAST 4.2
+    VAST_4_2_WRAP  = 14; // VAST 4.2 Wrapper
   }
 
 
@@ -189,25 +201,6 @@ message Creative {
     AMPHTML  = 2;  // AMP HTML
     IMAGE    = 3;  // Structured Image object
     NATIVE   = 4;  // Structured Native Object
-  }
-
-
-  /**
-   * The following enum defines the various subtypes of video ad creatives.
-   */
-  enum VideoType {
-    VideoType_UNKNOWN = 0;  // Equivalent to an unset value.
-
-    VAST_1_0      = 1;  // VAST 1.0
-    VAST_2_0      = 2;  // VAST 2.0
-    VAST_3_0      = 3;  // VAST 3.0
-    VAST_1_0_WRAP = 4;  // VAST 1.0 Wrapper
-    VAST_2_0_WRAP = 5;  // VAST 2.0 Wrapper
-    VAST_3_0_WRAP = 6;  // VAST 3.0 Wrapper
-    VAST_4_0      = 7;  // VAST 4.0
-    VAST_4_0_WRAP = 8;  // VAST 4.0 Wrapper
-    VAST_4_1      = 9;  // VAST 4.1
-    VAST_4_1_WRAP = 10; // VAST 4.1 Wrapper
   }
 }
 
