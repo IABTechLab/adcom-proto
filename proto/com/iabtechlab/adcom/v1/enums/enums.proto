@@ -697,7 +697,8 @@ enum VolumeNormalizationMode {
  *  The following enum lists the possible sources for User-Agent data.
  */
 enum UserAgentSource {
-  UNKNOWN_SOURCE            = 0;
+  UserAgentSource_UNKNOWN   = 0;  // Equivalent to an unset value.
+
   CLIENT_HINTS_LOW_ENTROPY  = 1;  // User-Agent Client Hints (only low-entropy headers were available).
   CLIENT_HINTS_HIGH_ENTROPY = 2;  // User-Agent Client Hints (with high-entropy headers available).
   USER_AGENT_STRING         = 3;  // Parsed from User-Agent header.
