@@ -238,6 +238,7 @@ enum DeviceType {
   TABLET         = 5;  // Tablet.
   CONNECTED_DEV  = 6;  // Connected Device.
   SET_TOP_BOX    = 7;  // Set Top Box.
+  OOH_DEVICE     = 8;  // Digital Out of Home.
 }
 
 
