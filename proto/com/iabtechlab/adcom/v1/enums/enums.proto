@@ -26,7 +26,7 @@ enum APIFramework {
   APIFramework_UNKNOWN = 0;  // Equivalent to an unset value.
 
   VPAID_1_0  = 1;  // VPAID 1.0
-  VAPID_2_0  = 2;  // VPAID 2.0
+  VPAID_2_0  = 2;  // VPAID 2.0
   MRAID_1_0  = 3;  // MRAID 1.0
   ORMMA      = 4;  // ORMMA
   MRAID_2_0  = 5;  // MRAID 2.0
