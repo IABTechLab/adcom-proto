@@ -67,6 +67,10 @@ enum AuditStatusCode {
   // rejection during use until the ad is resubmitted for audit and approved. Vendors need to 
   // communicate offline as to the criteria that constitutes a material change.
   CHANGE_RESUBMIT = 5;
+
+  // Expired: The ad has been marked as expired by the vendor. Vendors need to communicate offline 
+  // as to the expected bidding behavior for ads with this status.
+  EXPIRED = 6;
 }
 
 
