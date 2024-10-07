@@ -412,7 +412,7 @@ enum FeedType {
  */
 enum MatchMethod {
 
-  UNKNOWN = 0;
+  MatchMethod_UNKNOWN = 0;
 
   // No matching has occurred.
   // The associated ID came directly from a 3rd-party cookie or OS-provided resettable device ID for advertising (IFA).
