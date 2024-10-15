@@ -432,8 +432,6 @@ enum MatchMethod {
   // ID match was inferred from linkage based on non-authenticated features
   // across multiple browsers or devices(e.g. IP address and/or UserAgent)
   INFERRED = 5;
-
-  VENDOR_SPECIFIC = 500;
 }
 
 /**
