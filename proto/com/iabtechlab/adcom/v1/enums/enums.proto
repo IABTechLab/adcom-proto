@@ -411,7 +411,6 @@ enum FeedType {
  *  https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/main/2.6.md#3227---object-eid-
  */
 enum MatchMethod {
-
   MatchMethod_UNKNOWN = 0;
 
   // No matching has occurred.
