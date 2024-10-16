@@ -404,6 +404,34 @@ enum FeedType {
   PODCAST         = 3;  // Podcast.
 }
 
+/**
+ *  The following table contains enumerations for various ways an ID could be matched to an ad request,
+ *  and if they pertain to a single property or app.
+ *  It should be used on conjunction with the mm attribute in Object: EID of OpenRTB 2.x.
+ *  https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/main/2.6.md#3227---object-eid-
+ */
+enum MatchMethod {
+  MatchMethod_UNKNOWN = 0;
+
+  // No matching has occurred.
+  // The associated ID came directly from a 3rd-party cookie or OS-provided resettable device ID for advertising (IFA).
+  NO_MATCH = 1;
+
+  // Real time cookie sync as described in Appendix: Cookie Based ID Syncing of OpenRTB 2.x
+  // https://github.com/InteractiveAdvertisingBureau/openrtb2.x/blob/main/2.6.md#appendix-c-cookie-based-id-syncing-
+  BROWSER_COOKIE_SYNC = 2;
+
+  // ID match was based on user authentication such as an email login or hashed PII
+  AUTHENTICATED = 3;
+
+  // ID match was based on a 1st party observation, but without user authentication
+  // (e.g. GUID, SharedID, Session IDs, CHIPS or other 1st party cookies contained in localStorage)
+  OBSERVED = 4;
+
+  // ID match was inferred from linkage based on non-authenticated features
+  // across multiple browsers or devices(e.g. IP address and/or UserAgent)
+  INFERRED = 5;
+}
 
 /**
  * The following enum defines the services and/or vendors used for resolving IP addresses to
